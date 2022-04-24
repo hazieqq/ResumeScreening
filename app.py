@@ -30,8 +30,8 @@ def profile():
     #TODO:  check for session log in first
     return render_template('my-profile.html')
 
-@app.route('/jobapplication')
-def jobapplication():
+@app.route('/application')
+def application():
     #TODO:  check for session log in first
     return render_template('job-application.html')
 
