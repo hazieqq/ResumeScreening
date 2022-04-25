@@ -23,6 +23,7 @@
 
     <!-- Style css -->
     <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </head>
 
@@ -763,6 +764,54 @@
                 JobickCarousel();
             }, 1000);
         });
+    </script>
+
+    <!-- script for new-Job.html -->
+    <script>
+        function submitNewJobPost() {
+            console.log("sadasdasda")
+            var position = document.getElementById('position').value
+            Swal.fire({
+                title: 'Do you want to save the changes?',
+                showDenyButton: true,
+                showCancelButton: true,
+                confirmButtonText: 'Save',
+                denyButtonText: 'Dont save',
+            }).then((result) => {
+                if (result.isConfirmed) {
+
+                    $.ajax({
+                        type: "post",
+                        url: "/submitNewJobPost",
+                        data: {
+                            'data': position
+                        },
+                        success: function(response) {
+                            if (response == "1") {
+                                Swal.fire(
+                                    'Uploaded!',
+                                    'Your item has been upload.',
+                                    'success',
+                                ).then((result) => {
+                                    if (result.isConfirmed) {}
+                                })
+                            } else {
+                                Swal.fire(
+                                    'deleted!',
+                                    'Your item has been upload.',
+                                    'success',
+                                ).then((result) => {
+                                    if (result.isConfirmed) {}
+                                })
+                            }
+                        },
+                        error: function(jqXHR, textStatus, errorThrown) {
+                            console.log(textStatus, errorThrown);
+                        }
+                    });
+                }
+            })
+        }
     </script>
 
 </body>
