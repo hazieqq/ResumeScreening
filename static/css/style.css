@@ -42281,5 +42281,9 @@ html[dir="rtl"] [direction="rtl"][data-sidebar-style="compact"]:not([data-layout
     color: #fff;
 }
 
+input:invalid {
+    border: 10px solid green;
+}
+
 
 /*# sourceMappingURL=style.css.map *

@@ -1,16 +1,13 @@
 from flask import Flask, render_template, request, redirect, url_for, session,abort
-from flask_mysqldb import MySQL
 import logging
 from flaskCreate import app
 from errorhandling import error
 import MySQLdb.cursors
-
+from db import DB
 
 logging.basicConfig(filename='record.log', level=logging.DEBUG, format=f'%(asctime)s %(levelname)s %(name)s %(threadName)s : %(message)s')
 
 
-# mysql initialization
-mysql = MySQL(app)
 
 @app.route('/')
 def index():
@@ -49,12 +46,23 @@ def newjob():
     return render_template('new-job.html')
 
 
-@app.route('/submitNewJobPost', methods=["GET","POST"])
+@app.route('/submitNewJobPost', methods=["POST"])
 def submitNewJobPost():
-    position = request.values.get('data')
-    print(position,"adsdadsdadadad")
-    app.logger.info('position: ',position)
-    return "1"
+    # pre-check all values in sweetAlert.js
+    title = request.values.get('title')
+    category = request.values.get('category')
+    jobtype = request.values.get('jobtype')
+    vacancy = request.values.get('vacancy')
+    experience = request.values.get('experience')
+    date = request.values.get('date')
+    salaryFrom = request.values.get('salaryFrom')
+    salaryTo = request.values.get('salaryTo')
+    qualification = request.values.get('qualification')
+    description = request.values.get('description')
+    status1 = request.values.get('status1')
+    response = DB.insertIntoJobPost(title,category,jobtype,vacancy,experience,date,salaryFrom,qualification,description,status1)
+    
+    return response
 
 
 if __name__ == '__main__':
