@@ -25,7 +25,18 @@ def profile():
 def application():
     #TODO:  check for session log in first
     app.logger.info('Fetch job-application.html template')
-    return render_template('job-application.html')
+    jobApply = DB.readFromJobApply()
+    # throw exception flow if database cant access !
+    abort(500) if jobApply == "fail" else ""
+    user1 = ()
+    for i in range(len(jobApply)):
+        # user is in a form of tupple
+        user = DB.readFromUserAccount(jobApply[i]["userID"])
+        abort(500) if user == "fail" else  ""
+        user1 += user
+    app.logger.info(jobApply)
+    app.logger.info(user1)
+    return render_template('job-application.html',jobApply=jobApply,user=user1)
 
 @app.route('/joblist')
 def joblist():
