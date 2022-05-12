@@ -26,16 +26,24 @@ def application():
     #TODO:  check for session log in first
     app.logger.info('Fetch job-application.html template')
     jobApply = DB.readFromJobApply()
+    
     # throw exception flow if database cant access !
     abort(500) if jobApply == "fail" else ""
+    
+    # make applicantStatus lower because flask does not have lower function
+    for x in range(len(jobApply)):
+        jobApply[x]["applicantStatus"] = jobApply[x]["applicantStatus"].lower() 
+    
     user1 = ()
     for i in range(len(jobApply)):
         # user is in a form of tupple
         user = DB.readFromUserAccount(jobApply[i]["userID"])
         abort(500) if user == "fail" else  ""
         user1 += user
+        
     app.logger.info(jobApply)
     app.logger.info(user1)
+    print(jobApply)
     return render_template('job-application.html',jobApply=jobApply,user=user1)
 
 @app.route('/joblist')

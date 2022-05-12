@@ -41,11 +41,13 @@
                                 <td>{{user[loop.index-1]["fullName"]}}</td>
                                 <td>{{user[loop.index-1]["email"]}}</td>
                                 <td>{{user[loop.index-1]["phoneNo"]}}</td>
-                                <td>{{item["applicantStatus"]}}</td>
+                                <td>{{item["date"]}}</td>
                                 <td>
                                     <div class="btn-group dropend">
-                                        <button id={{index}} type="button" class="btn btn-sm btn-rounded dropdown-toggle btn-warning" data-bs-toggle="dropdown">
-                                            Pending
+                                        {% if item["applicantStatus"] == "rejected" %} {% set btn,status ="btn-danger","Rejected" %} {% elif item["applicantStatus"] == "pending" %} {% set btn,status ="btn-warning","Pending" %} {% else %} {% set btn,status ="btn-success","Selected" %} {% endif
+                                        %}
+                                        <button id={{index}} type="button" class="btn btn-sm btn-rounded dropdown-toggle {{btn}}" data-bs-toggle="dropdown">
+                                            {{status}}
                                         </button>
                                         <div class="dropdown-menu">
                                             <a class="dropdown-item" onclick="checkID(this,'{{ index }}','btn-warning')"><span class="btn btn-warning btn-sm btn-rounded">Pending</span></a>
