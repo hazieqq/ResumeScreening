@@ -270,7 +270,7 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
 
-:root {
+ :root {
     --bs-blue: #5e72e4;
     --bs-indigo: #6610f2;
     --bs-purple: #6f42c1;
@@ -645,7 +645,7 @@ button:not(:disabled),
     cursor: pointer;
 }
 
-::-moz-focus-inner {
+ ::-moz-focus-inner {
     padding: 0;
     border-style: none;
 }
@@ -680,17 +680,17 @@ legend+* {
     clear: left;
 }
 
-::-webkit-datetime-edit-fields-wrapper,
-::-webkit-datetime-edit-text,
-::-webkit-datetime-edit-minute,
-::-webkit-datetime-edit-hour-field,
-::-webkit-datetime-edit-day-field,
-::-webkit-datetime-edit-month-field,
-::-webkit-datetime-edit-year-field {
+ ::-webkit-datetime-edit-fields-wrapper,
+ ::-webkit-datetime-edit-text,
+ ::-webkit-datetime-edit-minute,
+ ::-webkit-datetime-edit-hour-field,
+ ::-webkit-datetime-edit-day-field,
+ ::-webkit-datetime-edit-month-field,
+ ::-webkit-datetime-edit-year-field {
     padding: 0;
 }
 
-::-webkit-inner-spin-button {
+ ::-webkit-inner-spin-button {
     height: auto;
 }
 
@@ -709,19 +709,19 @@ legend+* {
 }
 */
 
-::-webkit-search-decoration {
+ ::-webkit-search-decoration {
     -webkit-appearance: none;
 }
 
-::-webkit-color-swatch-wrapper {
+ ::-webkit-color-swatch-wrapper {
     padding: 0;
 }
 
-::file-selector-button {
+ ::file-selector-button {
     font: inherit;
 }
 
-::-webkit-file-upload-button {
+ ::-webkit-file-upload-button {
     font: inherit;
     -webkit-appearance: button;
 }
@@ -10699,7 +10699,7 @@ fieldset:disabled .btn {
     padding: 0;
 }
 
-::selection {
+ ::selection {
     color: #fff;
     background: var(--primary);
 }
@@ -16975,7 +16975,7 @@ html[dir="rtl"] [direction="rtl"][data-sidebar-style="compact"]:not([data-layout
     width: 50vw;
 }
 
-:root {
+ :root {
     --primary: #F93A0B;
     --secondary: #145650;
     --primary-hover: #cc2c05;
@@ -17289,7 +17289,7 @@ The smaller device rules always should write below the bigger device rules
 Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Component
 */
 
-:root {
+ :root {
     --primary: #F93A0B;
     --secondary: #145650;
     --primary-hover: #cc2c05;
@@ -17606,7 +17606,7 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
     }
 }
 
-:root {
+ :root {
     --primary: #F93A0B;
     --secondary: #145650;
     --primary-hover: #cc2c05;
@@ -19807,7 +19807,7 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
     opacity: 1;
 }
 
-:root {
+ :root {
     --nav-headbg: #FFFFFF;
     --sidebar-bg: #FFFFFF;
     --headerbg: #FFFFFF;
@@ -25404,7 +25404,7 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
     font-family: 'HelveticaNeue';
 }
 
-:root {
+ :root {
     --primary: #F93A0B;
     --secondary: #145650;
     --primary-hover: #cc2c05;
@@ -25612,7 +25612,7 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
     border-color: transparent transparent rgba(0, 0, 0, 0.15) transparent;
 }
 
-:root {
+ :root {
     --primary: #F93A0B;
     --secondary: #145650;
     --primary-hover: #cc2c05;
@@ -28673,7 +28673,7 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
     height: auto;
 }
 
-:root {
+ :root {
     --primary: #F93A0B;
     --secondary: #145650;
     --primary-hover: #cc2c05;
@@ -29369,7 +29369,7 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
     color: #393939;
 }
 
-:root {
+ :root {
     --primary: #F93A0B;
     --secondary: #145650;
     --primary-hover: #cc2c05;
@@ -29738,7 +29738,7 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
     border-bottom-right-radius: 0;
 }
 
-:root {
+ :root {
     --primary: #F93A0B;
     --secondary: #145650;
     --primary-hover: #cc2c05;
@@ -29766,7 +29766,7 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
     color: #fff;
 }
 
-:root {
+ :root {
     --primary: #F93A0B;
     --secondary: #145650;
     --primary-hover: #cc2c05;
@@ -29814,7 +29814,7 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
     margin-bottom: .5rem;
 }
 
-:root {
+ :root {
     --primary: #F93A0B;
     --secondary: #145650;
     --primary-hover: #cc2c05;
@@ -29887,7 +29887,7 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
     font-size: 2rem;
 }
 
-:root {
+ :root {
     --primary: #F93A0B;
     --secondary: #145650;
     --primary-hover: #cc2c05;
@@ -41263,7 +41263,7 @@ html[dir="rtl"] [direction="rtl"][data-sidebar-style="compact"]:not([data-layout
     padding-right: 9.375rem;
 }
 
-:root {
+ :root {
     --primary: #F93A0B;
     --secondary: #145650;
     --primary-hover: #cc2c05;

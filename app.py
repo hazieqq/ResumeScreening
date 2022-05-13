@@ -44,7 +44,7 @@ def application():
     app.logger.info(jobApply)
     app.logger.info(user1)
     print(jobApply)
-    return render_template('job-application.html',jobApply=jobApply,user=user1)
+    return render_template('job-application.html',jobApply=jobApply,user=user1,dashboard="Application")
 
 @app.route('/joblist')
 def joblist():

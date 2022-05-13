@@ -24,6 +24,7 @@
     <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+    <link href="{{ url_for('static', filename='vendor/datatables/css/jquery.dataTables.min.css') }}" rel="stylesheet">
 </head>
 
 <body>
@@ -574,7 +575,7 @@
                     <div class="collapse navbar-collapse justify-content-between">
                         <div class="header-left">
                             <div class="dashboard_bar">
-                                Dashboard
+                                {{dashboard}}
                             </div>
                         </div>
                         <ul class="navbar-nav header-right">
@@ -708,7 +709,7 @@
     <script src="{{ url_for('static', filename='vendor/jquery-nice-select/js/jquery.nice-select.min.js') }}"></script>
 
     <!-- Apex Chart -->
-    <script src="{{ url_for('static', filename='vendor/apexchart/apexchart.js') }}"></script>
+    <!-- <script src="{{ url_for('static', filename='vendor/apexchart/apexchart.js') }}"></script> -->
 
 
     <!-- Chart piety plugin files -->
@@ -725,8 +726,8 @@
     <!-- script for new-Job.html -->
     <script src="{{ url_for('static', filename='js/sweetAlert.js') }}"></script>
 
-    <!-- <script src="{{ url_for('static', filename='vendor/datatables/js/jquery.dataTables.min.js') }}"></script> -->
-    <!-- <script src="{{ url_for('static', filename='js/plugins-init/datatables.init.js') }}"></script> -->
+    <script src="{{ url_for('static', filename='vendor/datatables/js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/plugins-init/datatables.init.js') }}"></script>
 
     <script>
         function JobickCarousel() {
