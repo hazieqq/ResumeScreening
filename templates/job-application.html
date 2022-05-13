@@ -10,14 +10,8 @@
                     <option>Software Engineer</option>
                 </select>
             </div>
-            <div class="col-xl-2 col-xxl-3 search-dropdown d-flex align-items-center">
-                <select class="form-control border-0 default-select style-1 h-auto">
-                    <option>Newest</option>
-                    <option>Oldest</option>
-                    <!-- <option>France</option> -->
-                </select>
-            </div>
-            <div class="col-xl-8 col-xxl-6 d-md-flex job-title-search pe-0">
+
+            <div class="col-xl-10 col-xxl-9 d-md-flex job-title-search pe-0">
                 <div class="input-group search-area">
                     <input type="text" class="form-control h-auto" placeholder="search job title here...">
                     <span class="input-group-text"><a href="javascript:void(0)" class="btn btn-primary btn-rounded">Search<i class="flaticon-381-search-2 ms-2"></i></a></span>
@@ -60,8 +54,8 @@
                             </th>
                             {% endif %} {% for item in jobApply %}
                             <tr>
-                                {% set index = loop.index %}
-                                <td>{{index}}.</td>
+                                {% set index = item["jobapplyID"] %}
+                                <td>{{loop.index}}.</td>
                                 <td class="wspace-no">Database analyst</td>
                                 <td>{{user[loop.index-1]["fullName"]}}</td>
                                 <td>{{user[loop.index-1]["email"]}}</td>
@@ -92,7 +86,7 @@
                                         <a href="javascript:void(0);"><i class="fas fa-eye"></i></a>
                                     </span>
                                     <span>
-                                        <a href="javascript:void(0);"><i class="far fa-trash-alt text-danger"></i></a>
+                                        <a onclick="deleteJobApply('{{ index }}')"><i class="far fa-trash-alt text-danger"></i></a>
                                     </span>
                                     <span>
                                         <a href="javascript:void(0);"><i class="fas fa-download text-warning"></i></a>
@@ -107,15 +101,4 @@
         </div>
     </div>
 </div>
-<script>
-    function checkID(elem, id, classnameAnchor) {
-        var text = elem.text;
-        const btn = document.getElementById(id);
-        btn.classList.remove('btn-warning', 'btn-danger', 'btn-success');
-        // change button color
-        btn.classList.add(classnameAnchor);
-        // change text
-        btn.innerHTML = text;
-    }
-</script>
 {% endblock %}

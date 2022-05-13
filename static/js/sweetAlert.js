@@ -15,10 +15,15 @@ function submitNewJobPost() {
     if (title == "" || category == "" || jobtype == "" ||
         vacancy == "" || experience == "" || date == "" || salaryFrom == "" || salaryTo == "" || qualification == "" || description == "" ||
         status1 == "") {
-        Swal.fire({
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-primary',
+            },
+            buttonsStyling: false
+        })
+        swalWithBootstrapButtons.fire({
             title: 'Please fill up required information',
             icon: 'warning',
-            confirmButtonColor: '#3085d6',
             confirmButtonText: 'Cancel'
         })
         return
@@ -51,7 +56,7 @@ function submitNewJobPost() {
                     if (response == "success") {
                         Swal.fire(
                             'Uploaded!',
-                            'Your item has been upload.',
+                            'New job post has been upload.',
                             'success',
                         ).then((result) => {
                             if (result.isConfirmed) {
@@ -81,4 +86,113 @@ function submitNewJobPost() {
             });
         }
     })
+}
+
+
+function deleteJobApply(jobapplyID) {
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+            actions: "my-actions",
+            confirmButton: 'btn btn-danger',
+        },
+        buttonsStyling: false
+    })
+
+    swalWithBootstrapButtons.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        confirmButtonText: 'Yes, delete it!',
+        showCloseButton: true
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                type: "post",
+                url: "/deleteJobApply",
+                data: {
+                    'jobapplyID': jobapplyID
+                },
+                success: function(response) {
+                    if (response == "success") {
+                        swalWithBootstrapButtons.fire(
+                            'Deleted!',
+                            'Your file has been deleted.',
+                            'success'
+                        ).then((result) => {
+                            if (result.isConfirmed) {
+                                location.reload()
+                            } else {
+                                location.reload()
+                            }
+                        })
+                    } else {
+                        Swal.fire(
+                            'Fail!',
+                            'Error occur in deleting the application. Please try again after a few minute',
+                            'error',
+                        ).then((result) => {
+                            if (result.isConfirmed) {
+                                location.reload()
+                            } else {
+                                location.reload()
+                            }
+                        })
+                    }
+                },
+                error: function(errorThrown) {
+                    // window.open("../../templates/page-error-500.html")
+                    console.log(errorThrown)
+                }
+            });
+        }
+    })
+}
+
+function checkID(elem, id, classnameAnchor) {
+    var text = elem.text;
+    const btn = document.getElementById(id);
+    btn.classList.remove('btn-warning', 'btn-danger', 'btn-success');
+    // change button color
+    btn.classList.add(classnameAnchor);
+    // change text
+    btn.innerHTML = text;
+
+    // update database using ajax to call flask
+    $.ajax({
+        type: "post",
+        url: "/updateStatusApplication",
+        data: {
+            'jobapplyID': id,
+            'text': text
+        },
+        success: function(response) {
+            if (response == "success") {
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    heightAuto: false,
+                    title: 'Status has been updated',
+                    showConfirmButton: false,
+                    timer: 1500,
+                    customClass: 'swal-wide',
+                })
+            } else {
+                Swal.fire(
+                    'Fail!',
+                    'Error occur in updating the status. Please try again after a few minute',
+                    'error',
+                ).then((result) => {
+                    if (result.isConfirmed) {
+                        location.reload()
+                    } else {
+                        location.reload()
+                    }
+                })
+            }
+        },
+        error: function(errorThrown) {
+            // window.open("../../templates/page-error-500.html")
+            console.log(errorThrown)
+        }
+    });
 }

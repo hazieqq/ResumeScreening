@@ -43,7 +43,6 @@ def application():
         
     app.logger.info(jobApply)
     app.logger.info(user1)
-    print(jobApply)
     return render_template('job-application.html',jobApply=jobApply,user=user1,dashboard="Application")
 
 @app.route('/joblist')
@@ -84,5 +83,20 @@ def submitNewJobPost():
     return response
 
 
+@app.route('/deleteJobApply', methods=["POST"])
+def deleteJobApply():
+    jobapplyID = request.values.get('jobapplyID')
+    response = DB.deleteJobApply(jobapplyID)
+    
+    return response
+
+
+@app.route('/updateStatusApplication', methods=["POST"])
+def updateStatusApplication():
+    jobapplyID = request.values.get('jobapplyID')
+    text = request.values.get('text')
+    response = DB.updateJobApply(jobapplyID,text)
+    
+    return response
 if __name__ == '__main__':
    app.run()

@@ -42285,5 +42285,16 @@ input:invalid {
     border: 10px solid green;
 }
 
+.btn:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+.swal-wide {
+    /* width: 1000px !important;
+    font-size: 1em !important; */
+    font-size: 0.9em !important;
+}
+
 
 /*# sourceMappingURL=style.css.map *
