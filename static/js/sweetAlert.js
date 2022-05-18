@@ -168,7 +168,7 @@ function checkID(elem, id, classnameAnchor) {
         success: function(response) {
             if (response == "success") {
                 Swal.fire({
-                    position: 'top-end',
+                    // position: 'top-end',
                     icon: 'success',
                     heightAuto: false,
                     title: 'Status has been updated',

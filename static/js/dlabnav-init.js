@@ -30,18 +30,18 @@ function getUrlParams(dParam) {
         direction = 'ltr'; 
     } */
 
-    dlabSettingsOptions = {
+    var dlabSettingsOptions = {
         typography: "poppins",
         version: "light",
         layout: "vertical",
-        primary: "color_10",
+        primary: "color_1",
         headerBg: "color_1",
-        navheaderBg: "color_10",
-        sidebarBg: "color_10",
-        sidebarStyle: "icon-hover",
+        navheaderBg: "color_1",
+        sidebarBg: "color_1",
+        sidebarStyle: "full",
         sidebarPosition: "fixed",
         headerPosition: "fixed",
-        containerLayout: "full",
+        containerLayout: "full"
     };
 
 

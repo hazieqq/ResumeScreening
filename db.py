@@ -26,6 +26,16 @@ class DB():
         except Exception as e:
             print("Problem fetch from jobapply table: " + str(e))
             return "fail"
+        
+    def readFromJobPost():
+        try:
+            cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+            cursor.execute('SELECT * FROM jobpost')
+            data = cursor.fetchall()
+            return data
+        except Exception as e:
+            print("Problem fetch from jobpost table: " + str(e))
+            return "fail"
     
     def readFromUserAccount(userID):
         try:

@@ -2,7 +2,6 @@ from flask import Flask, render_template, request, redirect, url_for, session,ab
 import logging
 from flaskCreate import app
 from errorhandling import error
-import MySQLdb.cursors
 from db import DB
 
 logging.basicConfig(filename='record.log', level=logging.DEBUG, format=f'%(asctime)s %(levelname)s %(name)s %(threadName)s : %(message)s')
@@ -49,7 +48,13 @@ def application():
 def joblist():
     #TODO:  check for session log in first
     app.logger.info('Fetch job-list.html template')
-    return render_template('job-list.html')
+    jobPost = DB.readFromJobPost()
+    
+    # throw exception flow if database cant access !
+    abort(500) if jobPost == "fail" else ""
+    
+    print(jobPost)
+    return render_template('job-list.html',jobPost=jobPost)
 
 @app.route('/jobview')
 def jobview():
