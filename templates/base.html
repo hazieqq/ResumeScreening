@@ -25,6 +25,7 @@
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <link href="{{ url_for('static', filename='vendor/datatables/css/jquery.dataTables.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='vendor/select2/css/select2.min.css') }}" rel="stylesheet">
 </head>
 
 <body>
@@ -728,7 +729,8 @@
 
     <script src="{{ url_for('static', filename='vendor/datatables/js/jquery.dataTables.min.js') }}"></script>
     <script src="{{ url_for('static', filename='js/plugins-init/datatables.init.js') }}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jeditable.js/2.0.19/jquery.jeditable.min.js"></script>
+    <script src="{{ url_for('static', filename='vendor/select2/js/select2.full.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/plugins-init/select2-init.js') }}"></script>
     <script>
         function JobickCarousel() {
 

@@ -104,11 +104,5 @@ def updateStatusApplication():
     
     return response
 
-
-@app.route('/updateemployee', methods=["POST"])
-def updateemployee():
-  
-    return "tesdt"
-
 if __name__ == '__main__':
    app.run()
