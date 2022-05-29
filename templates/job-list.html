@@ -2,22 +2,7 @@
 <div class="content-body">
     <!-- row -->
     <div class="container-fluid">
-        <div class="d-flex align-items-center flex-wrap search-job bg-white px-0 mb-4 row">
-            <div class="col-xl-2 col-xxl-3 search-dropdown d-flex align-items-center">
-                <select id="single-select">
-                    <option>Choose Position</option>
-                    <option>Database analyst</option>
-                    <option>Software Engineer</option>
-                </select>
-            </div>
 
-            <div class="col-xl-10 col-xxl-9 d-md-flex job-title-search pe-0">
-                <div class="input-group search-area">
-                    <input type="text" class="form-control h-auto" placeholder="search job title here...">
-                    <span class="input-group-text"><a href="javascript:void(0)" class="btn btn-primary btn-rounded">Search<i class="flaticon-381-search-2 ms-2"></i></a></span>
-                </div>
-            </div>
-        </div>
         <div class="d-flex align-items-center mb-4 flex-wrap">
             <h4 class="fs-20 font-w600  me-auto">Job List</h4>
             <div>
@@ -37,10 +22,16 @@
                                 <th>No</th>
                                 <th>Position</th>
                                 <th data-orderable="false">Type</th>
+                                <th data-orderable="false">Category</th>
+                                <th>Salary From</th>
+                                <th>Salary To</th>
                                 <th>Posted Date</th>
                                 <th>Close Date</th>
                                 <th>Status</th>
-                                <th>Actions</th>
+                                <th>Experience</th>
+                                <th>Qualification</th>
+                                <th>Description</th>
+                                <th data-orderable="false">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -53,9 +44,15 @@
                                 <td>{{loop.index}}</td>
                                 <td class="data">{{item['title']}}</td>
                                 <td class="dataSelect">Full Time</td>
+                                <td class="">{{item['category']}}</td>
+                                <td class="">RM {{item['salaryFrom']}}</td>
+                                <td class="">RM {{item['salaryTo']}}</td>
                                 <td class="dataDate">25-01-2021</td>
                                 <td class="dataDate">25-01-2021</td>
                                 <td><span class="badge badge-success badge-lg light ">Active</span></td>
+                                <td class="">{{item['experience']}}</td>
+                                <td class="">{{item['qualification']}}</td>
+                                <td class="">{{item['description']}}</td>
                                 <td>
                                     <div class="action-buttons d-flex justify-content-center">
                                         <a id="{{index}}" class="btn btn-secondary light mr-2 save" style="display: none;">
@@ -121,28 +118,36 @@
         });
 
         // select
-
+        $('#' + id + '').children("td.dataSelect").each(function() {
+            var content = $(this).html();
+            $(this).html('<select class="select"> <option>Chs</option> <option>Choose Position</option></select>');
+        });
 
         $('#' + id + '').on('click', '.save', function() {
-            //console.log($(this).closest("td").siblings());
-            $('#' + id + '').children("td").each(function() {
-                console.log($(this).find('input'));
-                $(this).find('input').each(function() {
+            $('#' + id + '').find("input").map(function() {
+                $(this).each(function() {
                     var content = $(this).val();
                     $(this).html(content);
                     $(this).contents().unwrap();
                 });
-            });
-            $('input').each(function() {
-                var content = $(this).val();
-                $(this).html(content);
-                $(this).contents().unwrap();
-            });
+            }).get();
+            $('#' + id + '').find("select").map(function() {
+                $(this).each(function() {
+                    var content = $(this).val();
+                    $(this).html(content);
+                    $(this).contents().unwrap();
+                });
+            }).get();
             $(this).siblings('.edit').show();
             $(this).hide();
 
         });
 
     }
+
+
+    $('.select').select2({
+        theme: 'bootstrap4',
+    });
 </script>
 {% endblock %}
