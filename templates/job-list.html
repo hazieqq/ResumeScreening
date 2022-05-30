@@ -46,7 +46,7 @@
                                 <td class="dataDate">25-01-2021</td>
                                 <td><span class="badge badge-success badge-lg light ">Active</span></td>
                                 <td class="">{{item['experience']}}</td>
-                                <td class="dataTextArea">{{item['description']}}</td>
+                                <td class="dataTextArea"><a style="color:#FF4500;" data-bs-toggle="modal" data-bs-target="#exampleModalCenter2{{index}}">Click to view</a></td>
                                 <td>
                                     <div class="action-buttons d-flex justify-content-center">
                                         <a id="{{index}}" class="btn btn-secondary light mr-2 save" style="display: none;">
@@ -80,7 +80,7 @@
                                     </div>
                                 </td>
                             </tr>
-                            <div class="modal fade" id="exampleModalCenter{{index}}">
+                            <div class="modal fade" id="exampleModalCenter1{{index}}">
                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -93,7 +93,7 @@
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-danger light btn-sm" data-bs-dismiss="modal">Close</button>
-                                            <button type="button" onclick="modalSave('{{index}}')" class=" btn btn-primary btn-sm" data-bs-dismiss="modal">Save changes</button>
+                                            <button type="button" onclick="modalSave('{{index}}',this)" class=" btn btn-primary btn-sm" data-bs-dismiss="modal">Save changes</button>
                                         </div>
                                     </div>
                                 </div>
@@ -107,11 +107,11 @@
                                             </button>
                                         </div>
                                         <div class="modal-body">
-                                            <textarea id="description{{index}}" class="form-control solid" aria-label="With textarea" name="description">{{item['description']}}</textarea>
+                                            <textarea id="description2{{index}}" class="form-control solid mceNoEditor" name="description">{{item['description']}}</textarea>
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-danger light btn-sm" data-bs-dismiss="modal">Close</button>
-                                            <button type="button" onclick="modalSave('{{index}}')" class=" btn btn-primary btn-sm" data-bs-dismiss="modal">Save changes</button>
+                                            <!-- <button type="button" class=" btn btn-primary btn-sm" data-bs-dismiss="modal" disabled>Save changes</button> -->
                                         </div>
                                     </div>
                                 </div>
@@ -156,7 +156,7 @@
         //textArea
         $('#' + id + '').children("td.dataTextArea ").each(function() {
             var content = $(this).html();
-            $(this).html('<a style="color:#FF4500; " id="anchor' + id + '" data-bs-toggle="modal" data-bs-target="#exampleModalCenter' + id + '">Click to edit</a>');
+            $(this).html('<a style="color:#FF4500; " data-bs-toggle="modal" data-bs-target="#exampleModalCenter1' + id + '">Click to edit</a>');
         });
 
         $('#' + id + '').on('click', '.save', function() {
@@ -175,30 +175,39 @@
                 });
             }).get();
 
-            // hide anchor tag for description
-            $(document.getElementById("anchor" + id)).hide();
             $('#' + id + '').children("td.dataTextArea ").each(function() {
-                $(this).html(document.getElementById("description" + id).innerHTML);
+                $(this).html('<a style="color:#FF4500; " data-bs-toggle="modal" data-bs-target="#exampleModalCenter2' + id + '">Click to view</a>');
+                //console.log($("#exampleModalCenter2" + id).find('textarea').val());
             });
+
+
             $(this).siblings('.edit').show();
             $(this).hide();
 
         });
 
-        tinymce.init({
-            selector: '#description' + id
-        });
 
     }
+    tinymce.init({
+        selector: 'textarea.mceNoEditor',
+        readonly: true
+    });
 
+    tinymce.init({
+        selector: 'textarea',
+    });
 
     $('.select').select2({
         theme: 'bootstrap4',
     });
 
-    function modalSave(id) {
+    function modalSave(id, el) {
+
         const message = document.getElementById('description' + id);
         message.innerHTML = tinyMCE.get('description' + id).getContent();
+        $("#exampleModalCenter2" + id).find('textarea').html(tinyMCE.get('description' + id).getContent());
+        tinyMCE.get('description2' + id).setContent(tinyMCE.get('description' + id).getContent());
+
     }
 </script>
 {% endblock %}
