@@ -1,7 +1,6 @@
 function submitNewJobPost() {
     var title = document.getElementById('title').value
     var category = (document.getElementById('category').value == "Choose...") ? "" : document.getElementById('category').value
-    console.log(category)
     var jobtype = (document.getElementById('jobtype').value == "Choose...") ? "" : document.getElementById('jobtype').value
     var vacancy = document.getElementById('vacancy').value
     var experience = document.getElementById('experience').value
@@ -9,9 +8,9 @@ function submitNewJobPost() {
     var salaryFrom = document.getElementById('salaryFrom').value
     var salaryTo = document.getElementById('SalaryTo').value
     var qualification = document.getElementById('qualification').value
-    var description = document.getElementById('description').value
+    var description = tinyMCE.get('description').getContent()
+    console.log(description)
     var status1 = (document.getElementById('status1').checked) ? document.getElementById('status1').value : (document.getElementById('status2').checked) ? document.getElementById('status2').value : ""
-    console.log(status1)
     if (title == "" || category == "" || jobtype == "" ||
         vacancy == "" || experience == "" || date == "" || salaryFrom == "" || salaryTo == "" || qualification == "" || description == "" ||
         status1 == "") {

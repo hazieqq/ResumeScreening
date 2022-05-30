@@ -130,12 +130,13 @@ let dataSet = [
     });
 
     // dataTable5
+
     var table = $('#example5').DataTable({
         searching: true,
         paging: true,
         select: false,
         info: true,
-        lengthChange: false,
+        lengthChange: true,
         language: {
             paginate: {
                 next: '<i class="fa fa-angle-double-right" aria-hidden="true"></i>',
@@ -144,7 +145,6 @@ let dataSet = [
         }
 
     });
-
     // dataTable6
     var table = $('#example6').DataTable({
         searching: false,

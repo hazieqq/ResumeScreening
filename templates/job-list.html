@@ -22,14 +22,11 @@
                                 <th>No</th>
                                 <th>Position</th>
                                 <th data-orderable="false">Type</th>
-                                <th data-orderable="false">Category</th>
                                 <th>Salary From</th>
-                                <th>Salary To</th>
                                 <th>Posted Date</th>
                                 <th>Close Date</th>
                                 <th>Status</th>
                                 <th>Experience</th>
-                                <th>Qualification</th>
                                 <th>Description</th>
                                 <th data-orderable="false">Actions</th>
                             </tr>
@@ -44,15 +41,12 @@
                                 <td>{{loop.index}}</td>
                                 <td class="data">{{item['title']}}</td>
                                 <td class="dataSelect">Full Time</td>
-                                <td class="">{{item['category']}}</td>
                                 <td class="">RM {{item['salaryFrom']}}</td>
-                                <td class="">RM {{item['salaryTo']}}</td>
                                 <td class="dataDate">25-01-2021</td>
                                 <td class="dataDate">25-01-2021</td>
                                 <td><span class="badge badge-success badge-lg light ">Active</span></td>
                                 <td class="">{{item['experience']}}</td>
-                                <td class="">{{item['qualification']}}</td>
-                                <td class="">{{item['description']}}</td>
+                                <td class="dataTextArea">{{item['description']}}</td>
                                 <td>
                                     <div class="action-buttons d-flex justify-content-center">
                                         <a id="{{index}}" class="btn btn-secondary light mr-2 save" style="display: none;">
@@ -86,6 +80,42 @@
                                     </div>
                                 </td>
                             </tr>
+                            <div class="modal fade" id="exampleModalCenter{{index}}">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Modal title</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal">
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <textarea id="description{{index}}" class="form-control solid" aria-label="With textarea" name="description">{{item['description']}}</textarea>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-danger light btn-sm" data-bs-dismiss="modal">Close</button>
+                                            <button type="button" onclick="modalSave('{{index}}')" class=" btn btn-primary btn-sm" data-bs-dismiss="modal">Save changes</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal fade" id="exampleModalCenter2{{index}}">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Modal title</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal">
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <textarea id="description{{index}}" class="form-control solid" aria-label="With textarea" name="description">{{item['description']}}</textarea>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-danger light btn-sm" data-bs-dismiss="modal">Close</button>
+                                            <button type="button" onclick="modalSave('{{index}}')" class=" btn btn-primary btn-sm" data-bs-dismiss="modal">Save changes</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             {% endfor %}
                         </tbody>
                     </table>
@@ -101,9 +131,9 @@
         $(el).siblings().eq(0).show();
 
         //normal input
-        $('#' + id + '').children("td.data").each(function() {
+        $('#' + id + '').children("td.data ").each(function() {
             var content = $(this).html();
-            $(this).html('<input class="form-control solid" value="' + content + '" />');
+            $(this).html('<input class="form-control solid " value=" ' + content + ' " />');
         });
 
         // date
@@ -118,29 +148,45 @@
         });
 
         // select
-        $('#' + id + '').children("td.dataSelect").each(function() {
+        $('#' + id + '').children("td.dataSelect ").each(function() {
             var content = $(this).html();
-            $(this).html('<select class="select"> <option>Chs</option> <option>Choose Position</option></select>');
+            $(this).html('<select class="select "> <option>Chs</option> <option>Choose Position</option></select>');
+        });
+
+        //textArea
+        $('#' + id + '').children("td.dataTextArea ").each(function() {
+            var content = $(this).html();
+            $(this).html('<a style="color:#FF4500; " id="anchor' + id + '" data-bs-toggle="modal" data-bs-target="#exampleModalCenter' + id + '">Click to edit</a>');
         });
 
         $('#' + id + '').on('click', '.save', function() {
-            $('#' + id + '').find("input").map(function() {
+            $('#' + id + '').find("input ").map(function() {
                 $(this).each(function() {
                     var content = $(this).val();
                     $(this).html(content);
                     $(this).contents().unwrap();
                 });
             }).get();
-            $('#' + id + '').find("select").map(function() {
+            $('#' + id + '').find("select ").map(function() {
                 $(this).each(function() {
                     var content = $(this).val();
                     $(this).html(content);
                     $(this).contents().unwrap();
                 });
             }).get();
+
+            // hide anchor tag for description
+            $(document.getElementById("anchor" + id)).hide();
+            $('#' + id + '').children("td.dataTextArea ").each(function() {
+                $(this).html(document.getElementById("description" + id).innerHTML);
+            });
             $(this).siblings('.edit').show();
             $(this).hide();
 
+        });
+
+        tinymce.init({
+            selector: '#description' + id
         });
 
     }
@@ -149,5 +195,10 @@
     $('.select').select2({
         theme: 'bootstrap4',
     });
+
+    function modalSave(id) {
+        const message = document.getElementById('description' + id);
+        message.innerHTML = tinyMCE.get('description' + id).getContent();
+    }
 </script>
 {% endblock %}

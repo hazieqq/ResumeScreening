@@ -3,6 +3,7 @@ import logging
 from flaskCreate import app
 from errorhandling import error
 from db import DB
+from datetime import date
 
 logging.basicConfig(filename='record.log', level=logging.DEBUG, format=f'%(asctime)s %(levelname)s %(name)s %(threadName)s : %(message)s')
 
@@ -77,13 +78,14 @@ def submitNewJobPost():
     jobtype = request.values.get('jobtype')
     vacancy = request.values.get('vacancy')
     experience = request.values.get('experience')
-    date = request.values.get('date')
+    closedDate = request.values.get('date')
     salaryFrom = request.values.get('salaryFrom')
     salaryTo = request.values.get('salaryTo')
     qualification = request.values.get('qualification')
     description = request.values.get('description')
     status1 = request.values.get('status1')
-    response = DB.insertIntoJobPost(title,category,jobtype,vacancy,experience,date,salaryFrom,qualification,description,status1)
+    postedDate = date.today()
+    response = DB.insertIntoJobPost(title,category,jobtype,vacancy,experience,closedDate,postedDate,salaryFrom,salaryTo,qualification,description,status1)
     
     return response
 
