@@ -1,5 +1,13 @@
-CREATE DATABASE if not exists hiringSystem;
-use hiringSystem;
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET NAMES utf8 */;
+/*!50503 SET NAMES utf8 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+
+
+
+CREATE DATABASE if not exists heroku_c7805820ef04b71;
+use heroku_c7805820ef04b71;
 
 create table  if not exists jobpost (
 jobpostID INT(6) auto_increment primary key,
@@ -8,7 +16,8 @@ jobtype varchar(255) NOT NULL,
 description varchar(255) NOT NULL,
 qualification varchar(255) NOT NULL,
 category varchar(255) NOT NULL,
-date date NOT NULL,
+closeddate date NOT NULL,
+postedDate date NOT NULL,
 salaryFrom varchar(255) NOT NULL,
 status1 varchar(255) NOT NULL,
 experience varchar(255) NOT NULL
