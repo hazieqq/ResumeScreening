@@ -195,3 +195,140 @@ function checkID(elem, id, classnameAnchor) {
         }
     });
 }
+
+function edit(id, el) {
+    $(el).hide();
+    $(el).siblings().eq(0).show();
+
+    //normal input
+    $('#' + id + '').children("td.data ").each(function() {
+        var content = $(this).html();
+        $(this).html('<input class="form-control solid " value=" ' + content + ' " />');
+    });
+
+    // date
+    $('#' + id + '').children("td.dataDate").each(function() {
+        var content = $(this).html();
+        // reverse date since value take only format "y-m-d"
+        if (content.match(/^\d{4}-\d{2}-\d{2}$/) === null) {
+            //it is not a date with format YYYY-MM-DD
+            content = content.split("-").reverse().join("-");
+        }
+        $(this).html('<input type="date" class="form-control solid form_datetime" value="' + content + '" />');
+    });
+
+    // number salary
+    $('#' + id + '').children("td.dataNumber").each(function() {
+        var content = $(this).html().replace(/^\D+/g, '');
+        $(this).html('<input type="number" class="form-control solid number" placeholder="$" min="1000"  value="' + content + '" />');
+    });
+
+    // select
+    $('#' + id + '').children("td.dataSelectType").each(function() {
+        var content = $(this).html();
+        if (content.includes("Full")) {
+            $(this).html('<select class="select"><option selected>Full Employee</option><option>Internship/Graduate Trainee</option></select>');
+        } else {
+            $(this).html('<select class="select"><option>Permanent Employee</option><option selected>Internship/Graduate Trainee</option></select>');
+        }
+    });
+
+    // select status
+    $('#' + id + '').children("td.dataSelectStatus").each(function() {
+        var content = $(this).html();
+        if (content.includes("Active")) {
+            $(this).html('<select class="dataSelectStatus"><option selected><span class="badge badge-success badge-lg light ">Active</span></option><option><span class="badge badge-danger badge-lg light ">Inactive</span></option></select>');
+        } else {
+            $(this).html('<select class="dataSelectStatus"><option ><span class="badge badge-success badge-lg light ">Active</span></option><option selected><span class="badge badge-danger badge-lg light ">Inactive</span></option></select>');
+        }
+    });
+
+    // select experience
+    $('#' + id + '').children("td.dataSelectExp").each(function() {
+        var content = $(this).html();
+        if (content.includes("1")) {
+            $(this).html('<select class="dataSelectExp"><option>None</option><option selected>1 Yr</option><option>3 Yr</option><option>more than 5 years</option></select>');
+        } else if (content.includes("3")) {
+            $(this).html('<select class="dataSelectExp"><option>None</option><option >1 Yr</option><option selected>3 Yr</option><option>more than 5 years</option></select>');
+        } else if (content.includes("None")) {
+            $(this).html('<select class="dataSelectExp"><option selected>None</option><option >1 Yr</option><option >3 Yr</option><option>more than 5 years</option></select>');
+        } else {
+            $(this).html('<select class="dataSelectExp"><option>None</option><option >1 Yr</option><option >3 Yr</option><option selected>more than 5 years</option></select>');
+        }
+    });
+
+
+
+    //textArea
+    $('#' + id + '').children("td.dataTextArea ").each(function() {
+        var content = $(this).html();
+        $(this).html('<a style="color:#FF4500; " data-bs-toggle="modal" data-bs-target="#exampleModalCenter1' + id + '">Click to edit</a>');
+    });
+
+    $('#' + id + '').on('click', '.save', function() {
+        $('#' + id + '').find("input ").map(function() {
+            $(this).each(function() {
+                var content = $(this).val();
+                if (this.classList.contains("number")) {
+                    $(this).html("RM " + content);
+                } else {
+                    $(this).html(content);
+                }
+                $(this).contents().unwrap();
+
+            });
+        }).get();
+        $('#' + id + '').find("select").map(function() {
+            $(this).each(function() {
+                var content = $(this).val();
+                // make sure dataselect1 class is not remove
+                if (this.classList.contains("dataSelectStatus")) {
+                    if (content == "Active") {
+                        $('#' + id + '').children("td.dataSelectStatus ").each(function() {
+                            $(this).html('<span class="badge badge-success badge-lg light">Active</span>');
+                        });
+                    } else {
+                        $('#' + id + '').children("td.dataSelectStatus ").each(function() {
+                            $(this).html('<span class="badge badge-danger badge-lg light">Inactive</span>');
+                        });
+                    }
+                } else {
+                    $(this).html(content);
+                }
+                $(this).contents().unwrap();
+            });
+        }).get();
+
+        $('#' + id + '').children("td.dataTextArea ").each(function() {
+            $(this).html('<a style="color:#FF4500; " data-bs-toggle="modal" data-bs-target="#exampleModalCenter2' + id + '">Click to view</a>');
+            //console.log($("#exampleModalCenter2" + id).find('textarea').val());
+        });
+
+        $(this).siblings('.edit').show();
+        $(this).hide();
+
+    });
+
+}
+
+tinymce.init({
+    selector: 'textarea.mceNoEditor',
+    readonly: true
+});
+
+tinymce.init({
+    selector: 'textarea',
+});
+
+$('.select').select2({
+    theme: 'bootstrap4',
+});
+
+function modalSave(id, el) {
+
+    const message = document.getElementById('description' + id);
+    message.innerHTML = tinyMCE.get('description' + id).getContent();
+    $("#exampleModalCenter2" + id).find('textarea').html(tinyMCE.get('description' + id).getContent());
+    tinyMCE.get('description2' + id).setContent(tinyMCE.get('description' + id).getContent());
+
+}
