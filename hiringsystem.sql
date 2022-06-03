@@ -20,7 +20,7 @@ salaryFrom varchar(255) NOT NULL,
 status1 varchar(255) NOT NULL,
 experience varchar(255) NOT NULL,
 postedDate date NOT NULL,
-closeddate date NOT NULL,
+closedDate date NOT NULL,
 salaryTo varchar(255) NOT NULL
 
 );

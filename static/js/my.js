@@ -9,22 +9,27 @@ function submitNewJobPost() {
     var salaryTo = document.getElementById('SalaryTo').value
     var qualification = document.getElementById('qualification').value
     var description = tinyMCE.get('description').getContent()
-    console.log(description)
     var status1 = (document.getElementById('status1').checked) ? document.getElementById('status1').value : (document.getElementById('status2').checked) ? document.getElementById('status2').value : ""
     if (title == "" || category == "" || jobtype == "" ||
         vacancy == "" || experience == "" || date == "" || salaryFrom == "" || salaryTo == "" || qualification == "" || description == "" ||
         status1 == "") {
         const swalWithBootstrapButtons = Swal.mixin({
-            customClass: {
-                confirmButton: 'btn btn-primary',
-            },
-            buttonsStyling: false
-        })
-        swalWithBootstrapButtons.fire({
-            title: 'Please fill up required information',
-            icon: 'warning',
-            confirmButtonText: 'Cancel'
-        })
+                customClass: {
+                    confirmButton: 'btn btn-primary',
+                },
+                buttonsStyling: false
+            })
+            // swalWithBootstrapButtons.fire({
+            //     title: 'Please fill up required information',
+            //     icon: 'warning',
+            //     confirmButtonText: 'Cancel'
+            // })
+        toastr.options = {
+            "progressBar": true,
+        }
+        toastr["warning"]("Please fill up required information");
+
+
         return
     }
     Swal.fire({
@@ -53,17 +58,20 @@ function submitNewJobPost() {
                 },
                 success: function(response) {
                     if (response == "success") {
-                        Swal.fire(
-                            'Uploaded!',
-                            'New job post has been upload.',
-                            'success',
-                        ).then((result) => {
-                            if (result.isConfirmed) {
-                                location.reload()
-                            } else {
-                                location.reload()
-                            }
-                        })
+                        // Swal.fire(
+                        //     'Uploaded!',
+                        //     'New job post has been upload.',
+                        //     'success',
+                        // ).then((result) => {
+                        //     if (result.isConfirmed) {
+                        //         location.reload()
+                        //     } else {
+                        //         location.reload()
+                        //     }
+                        // })
+                        toastr["success"]("New job post has been uploaded");
+                        $(':input').val('');
+                        tinyMCE.get('description').setContent('');
                     } else {
                         Swal.fire(
                             'Fail!',
@@ -147,7 +155,7 @@ function deleteJobApply(jobapplyID) {
     })
 }
 
-function checkID(elem, id, classnameAnchor) {
+function updateStatus(elem, id, classnameAnchor) {
     var text = elem.text;
     const btn = document.getElementById(id);
     btn.classList.remove('btn-warning', 'btn-danger', 'btn-success');
@@ -196,7 +204,7 @@ function checkID(elem, id, classnameAnchor) {
     });
 }
 
-function edit(id, el) {
+function editJoblist(id, el) {
     $(el).hide();
     $(el).siblings().eq(0).show();
 
@@ -235,8 +243,8 @@ function edit(id, el) {
 
     // select status
     $('#' + id + '').children("td.dataSelectStatus").each(function() {
-        var content = $(this).html();
-        if (content.includes("Active")) {
+        var content = $(this).children().html();
+        if (content.toLowerCase() == "active") {
             $(this).html('<select class="dataSelectStatus"><option selected><span class="badge badge-success badge-lg light ">Active</span></option><option><span class="badge badge-danger badge-lg light ">Inactive</span></option></select>');
         } else {
             $(this).html('<select class="dataSelectStatus"><option ><span class="badge badge-success badge-lg light ">Active</span></option><option selected><span class="badge badge-danger badge-lg light ">Inactive</span></option></select>');
@@ -258,10 +266,8 @@ function edit(id, el) {
     });
 
 
-
     //textArea
     $('#' + id + '').children("td.dataTextArea ").each(function() {
-        var content = $(this).html();
         $(this).html('<a style="color:#FF4500; " data-bs-toggle="modal" data-bs-target="#exampleModalCenter1' + id + '">Click to edit</a>');
     });
 

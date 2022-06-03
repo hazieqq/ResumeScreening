@@ -71,9 +71,9 @@
                                             {{status}}
                                         </button>
                                         <div class="dropdown-menu">
-                                            <a class="dropdown-item" onclick="checkID(this,'{{ index }}','btn-warning')"><span class="btn btn-warning btn-sm btn-rounded">Pending</span></a>
-                                            <a class="dropdown-item" onclick="checkID(this,'{{ index }}','btn-danger')"><span class="btn btn-danger btn-sm btn-rounded">Rejected</span></a>
-                                            <a class="dropdown-item" onclick="checkID(this,'{{ index }}','btn-success')"><span class="btn btn-success btn-sm btn-rounded">Selected</span></a>
+                                            <a class="dropdown-item" onclick="updateStatus(this,'{{ index }}','btn-warning')"><span class="btn btn-warning btn-sm btn-rounded">Pending</span></a>
+                                            <a class="dropdown-item" onclick="updateStatus(this,'{{ index }}','btn-danger')"><span class="btn btn-danger btn-sm btn-rounded">Rejected</span></a>
+                                            <a class="dropdown-item" onclick="updateStatus(this,'{{ index }}','btn-success')"><span class="btn btn-success btn-sm btn-rounded">Selected</span></a>
                                         </div>
                                     </div>
                                 </td>
