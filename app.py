@@ -94,12 +94,23 @@ def deleteJobApply():
     return response
 
 
-@app.route('/updateStatusApplication', methods=["POST"])
-def updateStatusApplication():
-    jobapplyID = request.values.get('jobapplyID')
-    text = request.values.get('text')
-    response = DB.updateJobApply(jobapplyID,text)
-    
+@app.route('/update', methods=["POST"])
+def update():
+    if request.values.get('update') == 'updateStatus':
+        jobapplyID = request.values.get('jobapplyID')
+        text = request.values.get('text')
+        response = DB.updateJobApply(jobapplyID,text)
+    elif request.values.get('update') == 'updateJobList':
+        id = request.values.get('id')
+        title = request.values.get('title')
+        type = request.values.get('type')
+        salary = request.values.get('salary')
+        postedDate = request.values.get('postedDate')
+        closedDate = request.values.get('closedDate')
+        status = request.values.get('status')
+        description = request.values.get('description')
+        exp = request.values.get('exp')
+        response = DB.updateJobList(id,title,type,salary,postedDate,closedDate,status,description,exp);
     return response
 
 if __name__ == '__main__':

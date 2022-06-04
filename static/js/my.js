@@ -159,8 +159,9 @@ function updateStatus(elem, id, classnameAnchor) {
     // update database using ajax to call flask
     $.ajax({
         type: "post",
-        url: "/updateStatusApplication",
+        url: "/update",
         data: {
+            'update': 'updateStatus',
             'jobapplyID': id,
             'text': text
         },
@@ -356,6 +357,12 @@ function updateJobList(id, checkEmpty) {
     var postedDate = $("#" + id).find('#postedDate').html();
     var closedDate = $("#" + id).find('#closedDate').html();
     var status = $("#" + id).find('#status').html();
+    var re = status,
+        m = /(?<=<span.*?>)(.*?)(?=<\/span>)/g,
+        s = re.match(m);
+    status = JSON.stringify(s).replace(/[^a-zA-Z0-9,;\-.!? ]/g, '');
+    var description = tinyMCE.get('description2' + id).getContent();
+    var exp = $("#" + id).find('#exp').html();
     if (checkEmpty != 0) {
         toastr.options = {
             "progressBar": true,
@@ -365,6 +372,57 @@ function updateJobList(id, checkEmpty) {
     } else {
         $("#" + id).find('.save').siblings('.edit').show();
         $("#" + id).find('.save').hide();
+        $.ajax({
+            type: "post",
+            url: "/update",
+            data: {
+                'update': 'updateJobList',
+                'id': id,
+                'title': title,
+                'type': type,
+                'salary': salary,
+                'postedDate': postedDate,
+                'closedDate': closedDate,
+                'status': status,
+                'description': description,
+                'exp': exp
+            },
+            success: function(response) {
+                if (response == "success") {
+                    // Swal.fire({
+                    //     // position: 'top-end',
+                    //     icon: 'success',
+                    //     heightAuto: false,
+                    //     title: 'Status has been updated',
+                    //     showConfirmButton: false,
+                    //     timer: 1500,
+                    //     customClass: 'swal-wide',
+                    // })
+                    toastr.options = {
+                        "progressBar": true,
+                    }
+                    toastr["success"]("Successfully updated");
+                } else {
+                    Swal.fire(
+                        'Fail!',
+                        'Error occur in updating the status. Please try again after a few minute',
+                        'error',
+                    ).then((result) => {
+                        if (result.isConfirmed) {
+                            location.reload()
+                        } else {
+                            location.reload()
+                        }
+                    })
+                }
+            },
+            error: function(errorThrown) {
+                // window.open("../../templates/page-error-500.html")
+                console.log(errorThrown)
+            }
+        });
     }
+
+
 
 }

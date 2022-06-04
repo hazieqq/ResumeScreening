@@ -65,3 +65,13 @@ class DB():
         except Exception as e:
             print("Problem updating into jobapply table: " + str(e))
             return "fail"
+        
+    def updateJobList(id,title,type,salary,postedDate,closedDate,status,description,exp):
+        try:
+            cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+            cursor.execute('UPDATE jobpost SET title = %s, jobtype = %s, salaryFrom = %s,  postedDate = %s, closeddate = %s, status1 = %s,description=%s,experience=%s  WHERE jobpostID=%s',(title,type,salary,postedDate,closedDate,status,description,exp,id))
+            mysql.connection.commit()
+            return "success"
+        except Exception as e:
+            print("Problem updating into jobPost table: " + str(e))
+            return "fail"
