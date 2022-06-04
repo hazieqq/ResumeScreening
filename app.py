@@ -74,18 +74,14 @@ def newjob():
 def submitNewJobPost():
     # pre-check all values in sweetAlert.js
     title = request.values.get('title')
-    category = request.values.get('category')
     jobtype = request.values.get('jobtype')
-    vacancy = request.values.get('vacancy')
     experience = request.values.get('experience')
     closedDate = request.values.get('date')
     salaryFrom = request.values.get('salaryFrom')
-    salaryTo = request.values.get('salaryTo')
-    qualification = request.values.get('qualification')
     description = request.values.get('description')
     status1 = request.values.get('status1')
     postedDate = date.today()
-    response = DB.insertIntoJobPost(title,category,jobtype,vacancy,experience,closedDate,postedDate,salaryFrom,salaryTo,qualification,description,status1)
+    response = DB.insertIntoJobPost(title,jobtype,experience,closedDate,postedDate,salaryFrom,description,status1)
     
     return response
 

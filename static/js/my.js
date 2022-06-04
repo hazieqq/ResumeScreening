@@ -1,18 +1,14 @@
 function submitNewJobPost() {
     var title = document.getElementById('title').value
-    var category = (document.getElementById('category').value == "Choose...") ? "" : document.getElementById('category').value
     var jobtype = (document.getElementById('jobtype').value == "Choose...") ? "" : document.getElementById('jobtype').value
-    var vacancy = document.getElementById('vacancy').value
     var experience = document.getElementById('experience').value
+    console.log(experience)
     var date = document.getElementById('date').value
     var salaryFrom = document.getElementById('salaryFrom').value
-    var salaryTo = document.getElementById('SalaryTo').value
-    var qualification = document.getElementById('qualification').value
+    salaryFrom = "RM " + salaryFrom;
     var description = tinyMCE.get('description').getContent()
     var status1 = (document.getElementById('status1').checked) ? document.getElementById('status1').value : (document.getElementById('status2').checked) ? document.getElementById('status2').value : ""
-    if (title == "" || category == "" || jobtype == "" ||
-        vacancy == "" || experience == "" || date == "" || salaryFrom == "" || salaryTo == "" || qualification == "" || description == "" ||
-        status1 == "") {
+    if (title == "" || jobtype == "" || experience == "" || date == "" || salaryFrom == "" || description == "" || status1 == "") {
         const swalWithBootstrapButtons = Swal.mixin({
                 customClass: {
                     confirmButton: 'btn btn-primary',
@@ -45,14 +41,10 @@ function submitNewJobPost() {
                 url: "/submitNewJobPost",
                 data: {
                     'title': title,
-                    'category': category,
                     'jobtype': jobtype,
-                    'vacancy': vacancy,
                     'experience': experience,
                     'date': date,
                     'salaryFrom': salaryFrom,
-                    'salaryTo': salaryTo,
-                    'qualification': qualification,
                     'description': description,
                     'status1': status1
                 },
@@ -204,9 +196,10 @@ function updateStatus(elem, id, classnameAnchor) {
     });
 }
 
-function editJoblist(id, el) {
-    $(el).hide();
-    $(el).siblings().eq(0).show();
+function editJoblist(id) {
+
+    $("#" + id).find('.edit').hide();
+    $("#" + id).find('.edit').siblings().eq(0).show();
 
     //normal input
     $('#' + id + '').children("td.data ").each(function() {
@@ -272,47 +265,64 @@ function editJoblist(id, el) {
     });
 
     $('#' + id + '').on('click', '.save', function() {
+        var checkEmpty = 0;
         $('#' + id + '').find("input ").map(function() {
             $(this).each(function() {
-                var content = $(this).val();
+                // check white space and empty string
+                const regex = new RegExp(/^\s*$/);
+                var content;
+                if (regex.test($(this).val())) {
+                    content = "NA";
+                    checkEmpty = 1;
+                } else {
+                    content = $(this).val();
+                }
                 if (this.classList.contains("number")) {
                     $(this).html("RM " + content);
                 } else {
                     $(this).html(content);
                 }
-                $(this).contents().unwrap();
-
-            });
-        }).get();
-        $('#' + id + '').find("select").map(function() {
-            $(this).each(function() {
-                var content = $(this).val();
-                // make sure dataselect1 class is not remove
-                if (this.classList.contains("dataSelectStatus")) {
-                    if (content == "Active") {
-                        $('#' + id + '').children("td.dataSelectStatus ").each(function() {
-                            $(this).html('<span class="badge badge-success badge-lg light">Active</span>');
-                        });
-                    } else {
-                        $('#' + id + '').children("td.dataSelectStatus ").each(function() {
-                            $(this).html('<span class="badge badge-danger badge-lg light">Inactive</span>');
-                        });
-                    }
-                } else {
-                    $(this).html(content);
+                if (checkEmpty == 0) {
+                    $(this).contents().unwrap()
                 }
-                $(this).contents().unwrap();
+
             });
         }).get();
+        if (checkEmpty == 0) {
+            $('#' + id + '').find("select").map(function() {
+                $(this).each(function() {
+                    var content = $(this).val();
+                    // make sure dataselect1 class is not remove
+                    if (this.classList.contains("dataSelectStatus")) {
+                        if (content == "Active") {
+                            $('#' + id + '').children("td.dataSelectStatus ").each(function() {
+                                $(this).html('<span class="badge badge-success badge-lg light">Active</span>');
+                            });
+                        } else {
+                            $('#' + id + '').children("td.dataSelectStatus ").each(function() {
+                                $(this).html('<span class="badge badge-danger badge-lg light">Inactive</span>');
+                            });
+                        }
+                    } else {
+                        $(this).html(content);
+                    }
+                    if (checkEmpty == 0) {
+                        $(this).contents().unwrap()
+                    }
+                });
+            }).get();
 
-        $('#' + id + '').children("td.dataTextArea ").each(function() {
-            $(this).html('<a style="color:#FF4500; " data-bs-toggle="modal" data-bs-target="#exampleModalCenter2' + id + '">Click to view</a>');
-            //console.log($("#exampleModalCenter2" + id).find('textarea').val());
-        });
+            $('#' + id + '').children("td.dataTextArea ").each(function() {
+                $(this).html('<a style="color:#FF4500; " data-bs-toggle="modal" data-bs-target="#exampleModalCenter2' + id + '">Click to view</a>');
+                //console.log($("#exampleModalCenter2" + id).find('textarea').val());
+            });
+        }
 
-        $(this).siblings('.edit').show();
-        $(this).hide();
 
+
+        //$(this).siblings('.edit').show();
+        //$(this).hide();
+        updateJobList(id, checkEmpty);
     });
 
 }
@@ -326,9 +336,9 @@ tinymce.init({
     selector: 'textarea',
 });
 
-$('.select').select2({
-    theme: 'bootstrap4',
-});
+// $('.select').select2({
+//     theme: 'bootstrap4',
+// });
 
 function modalSave(id, el) {
 
@@ -336,5 +346,25 @@ function modalSave(id, el) {
     message.innerHTML = tinyMCE.get('description' + id).getContent();
     $("#exampleModalCenter2" + id).find('textarea').html(tinyMCE.get('description' + id).getContent());
     tinyMCE.get('description2' + id).setContent(tinyMCE.get('description' + id).getContent());
+
+}
+
+function updateJobList(id, checkEmpty) {
+    var title = $("#" + id).find('#title').html();
+    var type = $("#" + id).find('#type').html();
+    var salary = $("#" + id).find('#salary').html();
+    var postedDate = $("#" + id).find('#postedDate').html();
+    var closedDate = $("#" + id).find('#closedDate').html();
+    var status = $("#" + id).find('#status').html();
+    if (checkEmpty != 0) {
+        toastr.options = {
+            "progressBar": true,
+        }
+        toastr["warning"]("Please fill up required information");
+        //editJoblist(id);
+    } else {
+        $("#" + id).find('.save').siblings('.edit').show();
+        $("#" + id).find('.save').hide();
+    }
 
 }

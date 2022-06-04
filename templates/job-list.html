@@ -39,15 +39,15 @@
                             {% endif %} {% for item in jobPost %} {% set index = item["jobpostID"] %}
                             <tr id="{{index}}" class="text-center">
                                 <td>{{loop.index}}</td>
-                                <td class="data">{{item['title']}}</td>
-                                <td class="dataSelectType">{{item['jobtype']}}</td>
-                                <td class="dataNumber">RM {{item['salaryFrom']}}</td>
-                                <td class="dataDate">{{item['postedDate']}}</td>
-                                <td class="dataDate">{{item['closedDate']}}</td>
+                                <td id="title" class="data">{{item['title']}}</td>
+                                <td id="type" class="dataSelectType">{{item['jobtype']}}</td>
+                                <td id="salary" class="dataNumber">{{item['salaryFrom']}}</td>
+                                <td id="postedDate" class="dataDate">{{item['postedDate']}}</td>
+                                <td id="closedDate" class="dataDate">{{item['closeddate']}}</td>
                                 {% if item['status1']|lower == "active" %}
-                                <td class="dataSelectStatus"><span class="badge badge-success badge-lg light ">{{item['status1']}}</span></td>
+                                <td id="status" class="dataSelectStatus"><span class="badge badge-success badge-lg light ">{{item['status1']}}</span></td>
                                 {% else %}
-                                <td class="dataSelectStatus"><span class="badge badge-danger badge-lg light ">{{item['status1']}}</span></td> {% endif %}
+                                <td id="status" class="dataSelectStatus"><span class="badge badge-danger badge-lg light ">{{item['status1']}}</span></td> {% endif %}
 
                                 <td class="dataSelectExp">{{item['experience']}}</td>
                                 <td class="dataTextArea"><a style="color:#FF4500;" data-bs-toggle="modal" data-bs-target="#exampleModalCenter2{{index}}">Click to view</a></td>
@@ -56,7 +56,7 @@
                                         <a id="{{index}}" class="btn btn-secondary light mr-2 save" style="display: none;">
                                             <i class="fa fa-check" aria-hidden="true"></i>
                                         </a>
-                                        <a class="btn btn-secondary light mr-2 edit" onclick="editJoblist('{{index}}',this)">
+                                        <a class="btn btn-secondary light mr-2 edit" onclick="editJoblist('{{index}}')">
                                             <svg xmlns="http://www.w3.org/2000/svg " xmlns:xlink="http://www.w3.org/1999/xlink " width="24px " height="24px " viewBox="0 0 24 24 " version="1.1 " class="svg-main-icon ">
 											<g stroke="none " stroke-width="1 " fill="none " fill-rule="evenodd ">
 												<rect x="0 " y="0 " width="24 " height="24 "></rect>
