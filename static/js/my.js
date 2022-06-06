@@ -8,7 +8,8 @@ function submitNewJobPost() {
     salaryFrom = "RM " + salaryFrom;
     var description = tinyMCE.get('description').getContent()
     var status1 = (document.getElementById('status1').checked) ? document.getElementById('status1').value : (document.getElementById('status2').checked) ? document.getElementById('status2').value : ""
-    if (title == "" || jobtype == "" || experience == "" || date == "" || salaryFrom == "" || description == "" || status1 == "") {
+    const regex = new RegExp(/^\s*$/);
+    if (regex.test(title) || regex.test(jobtype) || experience == "" || date == "" || salaryFrom == "" || regex.test(description) || status1 == "") {
         const swalWithBootstrapButtons = Swal.mixin({
                 customClass: {
                     confirmButton: 'btn btn-primary',
@@ -28,12 +29,17 @@ function submitNewJobPost() {
 
         return
     }
-    Swal.fire({
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+            confirmButton: 'btn btn-success',
+            cancelButton: 'btn btn-danger m-2'
+        },
+        buttonsStyling: false
+    })
+    swalWithBootstrapButtons.fire({
         title: 'Do you want to save the changes?',
-        showDenyButton: true,
         showCancelButton: true,
         confirmButtonText: 'Save',
-        denyButtonText: 'Dont save',
     }).then((result) => {
         if (result.isConfirmed) {
             $.ajax({
@@ -81,6 +87,17 @@ function submitNewJobPost() {
                 error: function(errorThrown) {
                     // window.open("../../templates/page-error-500.html")
                     console.log(errorThrown)
+                    Swal.fire(
+                        'Fail!',
+                        'Fail to insert into Database. Please try again after 1 minute',
+                        'error',
+                    ).then((result) => {
+                        if (result.isConfirmed) {
+                            location.reload()
+                        } else {
+                            location.reload()
+                        }
+                    })
                 }
             });
         }
@@ -141,6 +158,17 @@ function deleteJobApply(jobapplyID) {
                 error: function(errorThrown) {
                     // window.open("../../templates/page-error-500.html")
                     console.log(errorThrown)
+                    Swal.fire(
+                        'Fail!',
+                        'Error occur in deleting the application. Please try again after a few minute',
+                        'error',
+                    ).then((result) => {
+                        if (result.isConfirmed) {
+                            location.reload()
+                        } else {
+                            location.reload()
+                        }
+                    })
                 }
             });
         }
@@ -193,6 +221,17 @@ function updateStatus(elem, id, classnameAnchor) {
         error: function(errorThrown) {
             // window.open("../../templates/page-error-500.html")
             console.log(errorThrown)
+            Swal.fire(
+                'Fail!',
+                'Error occur in updating the status. Please try again after a few minute',
+                'error',
+            ).then((result) => {
+                if (result.isConfirmed) {
+                    location.reload()
+                } else {
+                    location.reload()
+                }
+            })
         }
     });
 }
@@ -405,7 +444,7 @@ function updateJobList(id, checkEmpty) {
                 } else {
                     Swal.fire(
                         'Fail!',
-                        'Error occur in updating the status. Please try again after a few minute',
+                        'Error occur in updating job list. Please try again after a few minute',
                         'error',
                     ).then((result) => {
                         if (result.isConfirmed) {
@@ -419,6 +458,17 @@ function updateJobList(id, checkEmpty) {
             error: function(errorThrown) {
                 // window.open("../../templates/page-error-500.html")
                 console.log(errorThrown)
+                Swal.fire(
+                    'Fail!',
+                    'Error occur in updating job list. Please try again after a few minute',
+                    'error',
+                ).then((result) => {
+                    if (result.isConfirmed) {
+                        location.reload()
+                    } else {
+                        location.reload()
+                    }
+                })
             }
         });
     }
