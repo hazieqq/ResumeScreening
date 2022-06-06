@@ -105,7 +105,7 @@ function submitNewJobPost() {
 }
 
 
-function deleteJobApply(jobapplyID) {
+function deletefunction(id, deletefrom) {
     const swalWithBootstrapButtons = Swal.mixin({
         customClass: {
             actions: "my-actions",
@@ -124,16 +124,17 @@ function deleteJobApply(jobapplyID) {
         if (result.isConfirmed) {
             $.ajax({
                 type: "post",
-                url: "/deleteJobApply",
+                url: "/delete",
                 data: {
-                    'jobapplyID': jobapplyID
+                    'id': id,
+                    'deletefrom': deletefrom
                 },
                 success: function(response) {
                     if (response == "success") {
                         swalWithBootstrapButtons.fire(
                             'Deleted!',
-                            'Your file has been deleted.',
-                            'success'
+                            '',
+                            'success',
                         ).then((result) => {
                             if (result.isConfirmed) {
                                 location.reload()
@@ -144,7 +145,7 @@ function deleteJobApply(jobapplyID) {
                     } else {
                         Swal.fire(
                             'Fail!',
-                            'Error occur in deleting the application. Please try again after a few minute',
+                            'Error occured in deleting. Please try again after a few minute',
                             'error',
                         ).then((result) => {
                             if (result.isConfirmed) {
@@ -160,7 +161,7 @@ function deleteJobApply(jobapplyID) {
                     console.log(errorThrown)
                     Swal.fire(
                         'Fail!',
-                        'Error occur in deleting the application. Please try again after a few minute',
+                        'Error occured in deleting. Please try again after a few minute',
                         'error',
                     ).then((result) => {
                         if (result.isConfirmed) {

@@ -86,16 +86,22 @@ def submitNewJobPost():
     return response
 
 
-@app.route('/deleteJobApply', methods=["POST"])
-def deleteJobApply():
-    jobapplyID = request.values.get('jobapplyID')
-    response = DB.deleteJobApply(jobapplyID)
-    
+@app.route('/delete', methods=["POST"])
+def delete():
+    response = "fail"
+    if request.values.get('deletefrom') == 'application':
+        id = request.values.get('id')
+        response = DB.deleteJobApply(id)
+    elif request.values.get('deletefrom') == 'joblist':
+        id = request.values.get('id')
+        response = DB.deleteJobList(id)
     return response
 
 
 @app.route('/update', methods=["POST"])
 def update():
+    # declare response as fail first !
+    response = "fail"
     if request.values.get('update') == 'updateStatus':
         jobapplyID = request.values.get('jobapplyID')
         text = request.values.get('text')

@@ -56,6 +56,16 @@ class DB():
             print("Problem deleting from jobapply table: " + str(e))
             return "fail"
         
+    def deleteJobList(jobpostid):
+        try:
+            cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+            cursor.execute('DELETE FROM jobpost where jobpostID=%s' % (jobpostid))
+            mysql.connection.commit()
+            return "success"
+        except Exception as e:
+            print("Problem deleting from jobpost table: " + str(e))
+            return "fail"
+        
     def updateJobApply(jobApplyID,text):
         try:
             cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
