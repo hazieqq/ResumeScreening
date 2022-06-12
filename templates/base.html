@@ -8,14 +8,14 @@
     <meta name="author" content="" />
     <meta name="robots" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Jobick : Job Admin Bootstrap 5 Template" />
-    <meta property="og:title" content="Jobick : Job Admin Bootstrap 5 Template" />
-    <meta property="og:description" content="Jobick : Job Admin Bootstrap 5 Template" />
-    <meta property="og:image" content="https://jobick.dexignlab.com/xhtml/social-image.png" />
+    <meta name="description" content="HR Dashboard" />
+    <meta property="og:title" content="HR Dashboard" />
+    <meta property="og:description" content="HR Dashboard" />
+    <!-- <meta property="og:image" content="HR Dashboard" /> -->
     <meta name="format-detection" content="telephone=no">
 
     <!-- PAGE TITLE HERE -->
-    <title>Jobick Job Admin</title>
+    <title>HR Dashboard</title>
     <!-- FAVICONS ICON -->
     <link href="{{ url_for('static', filename='vendor/jquery-nice-select/css/nice-select.css') }}" rel="stylesheet">
     <link href="{{ url_for('static', filename='vendor/owl-carousel/owl.carousel.css') }}" rel="stylesheet">
@@ -31,12 +31,16 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ttskch/select2-bootstrap4-theme@x.x.x/dist/select2-bootstrap4.min.css">
 
+    <link href="{{ url_for('static', filename='vendor/fullcalendar/css/main.min.css') }}" rel="stylesheet">
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.js"></script>
 
 
     <script src="{{ url_for('static', filename='vendor/select2/js/select2.full.min.js') }}"></script>
     <script src="{{ url_for('static', filename='js/plugins-init/select2-init.js') }}"></script>
     <script src="{{ url_for('static', filename='vendor/tinymce/tinymce.min.js') }}"></script>
+
+
 
 </head>
 
@@ -282,7 +286,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="javascript:void()" aria-expanded="false">
+                        <a href="{{ url_for('calender') }}" aria-expanded="false">
                             <i class="fa fa-calendar" aria-hidden="true"></i>
                             <span class="nav-text m-2">Calender</span>
                         </a>
@@ -361,6 +365,12 @@
     <script src="{{ url_for('static', filename='js/plugins-init/datatables.init.js') }}"></script>
 
     <script src="{{ url_for('static', filename='vendor/toastr/js/toastr.min.js') }}"></script>
+
+    <script src="{{ url_for('static', filename='vendor/fullcalendar/js/main.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/plugins-init/fullcalendar-init.js') }}"></script>
+
+
+
 
     <script>
         function JobickCarousel() {

@@ -85,3 +85,13 @@ class DB():
         except Exception as e:
             print("Problem updating into jobPost table: " + str(e))
             return "fail"
+        
+    def fetchDateline():
+        try:
+            cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+            cursor.execute('SELECT title,closeddate FROM jobpost')
+            data = cursor.fetchall()
+            return data
+        except Exception as e:
+            print("Problem fetch from jobpost table: " + str(e))
+            return "fail"

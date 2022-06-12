@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, session,abort
+from flask import Flask, render_template, request, redirect, url_for, session,abort,jsonify
 import logging
 from flaskCreate import app
 from errorhandling import error
@@ -7,6 +7,24 @@ from datetime import date
 
 #logging.basicConfig(filename='record.log', level=logging.DEBUG, format=f'%(asctime)s %(levelname)s %(name)s %(threadName)s : %(message)s')
 
+
+
+
+
+@app.route('/api/v1/resources/events/all', methods=['GET'])
+def api_all():
+    dateline = DB.fetchDateline()
+    title = dateline[0]['title']
+    print(dateline[0]['closeddate'])
+    events= [
+        {
+            'title': title,
+            'start': '2022-02-10',
+            'className': "bg-danger"
+        },
+        
+    ]
+    return jsonify(events)
 
 
 @app.route('/')
@@ -74,6 +92,12 @@ def shortlistCandidate():
     #TODO:  check for session log in first
     app.logger.info('Fetch shortlistCandidate.html template')
     return render_template('shortlistCandidate.html')
+
+@app.route('/calender')
+def calender():
+    #TODO:  check for session log in first
+    app.logger.info('Fetch calender.html template')
+    return render_template('calender.html')
 
 @app.route('/submitNewJobPost', methods=["POST"])
 def submitNewJobPost():
