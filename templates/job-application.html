@@ -13,12 +13,65 @@
             </div>
         </div>
         <div class="row">
+            <div class="col-xl-3 col-lg-3 col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="small-section-tittle2 mb-45">
 
-            <div class="col-xl-12">
+                            <h4>Filter Jobs</h4>
+                        </div>
+                        <div class="job-category-listing mb-50">
+                            <div class="single-listing">
+                                <div class="small-section-tittle2 mb-4">
+                                    <h4>Job Position</h4>
+                                </div>
+                                <!-- Select job items start -->
+                                <div class="select-job-items2">
+                                    <select name="select" class="form-control border border-light">
+                                     <option value="">All Category</option>
+                                     <option value="">Category 1</option>
+                                     <option value="">Category 2</option>
+                                     <option value="">Category 3</option>
+                                     <option value="">Category 4</option>
+                                 </select>
+                                </div>
+                                <!--  Select job items End-->
+                                <!-- select-Categories start -->
+                                <div class="select-Categories pt-80 pb-50">
+                                    <div class="small-section-tittle2 mt-4">
+                                        <h4>Job Type</h4>
+                                    </div>
+                                    <label class="container">Selected
+                                     <input type="checkbox" >
+                                     <span class="checkmark"></span>
+                                 </label>
+                                    <label class="container">Pending
+                                     <input type="checkbox">
+                                     <span class="checkmark"></span>
+                                 </label>
+                                    <label class="container">Rejected
+                                     <input type="checkbox">
+                                     <span class="checkmark"></span>
+                                 </label>
+                                </div>
+                                <!-- select-Categories End -->
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-9 col-lg-9 col-md-8">
                 <div class="table-responsive">
                     <table class="table display mb-4 dataTablesCard job-table table-responsive-xl card-table" id="example5">
                         <thead>
                             <tr>
+                                <th data-orderable="false" class=" pe-3">
+                                    <div class="form-check custom-checkbox mx-2">
+                                        <input type="checkbox" class="form-check-input" id="checkAll">
+                                        <label class="form-check-label" for="checkAll"></label>
+                                    </div>
+                                </th>
                                 <th>No</th>
                                 <th>Position</th>
                                 <th>Name</th>
@@ -26,6 +79,7 @@
                                 <th data-orderable="false">Phone Number</th>
                                 <th>Applied On</th>
                                 <th>Status</th>
+                                <th>Score</th>
                                 <th data-orderable="false">Actions</th>
                             </tr>
                         </thead>
@@ -35,7 +89,13 @@
                                 <h3 style="color: red;">No Records found</h3>
                             </th>
                             {% endif %} {% for item in jobApply %}
-                            <tr>
+                            <tr class="text-center">
+                                <td class="py-2">
+                                    <div class="form-check custom-checkbox mx-2">
+                                        <input type="checkbox" class="form-check-input" id="checkbox1">
+                                        <label class="form-check-label" for="checkbox1"></label>
+                                    </div>
+                                </td>
                                 {% set index = item["jobapplyID"] %}
                                 <td>{{loop.index}}.</td>
                                 <td class="wspace-no">Database analyst</td>
@@ -57,6 +117,7 @@
                                         </div>
                                     </div>
                                 </td>
+                                <td>NA</td>
                                 <td class="action-btn wspace-no">
                                     <!-- <span>
                                         <a href="javascript:void(0);"><i class="fas fa-check text-success"></i></a>

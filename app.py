@@ -69,6 +69,11 @@ def newjob():
     app.logger.info('Fetch new-job.html template')
     return render_template('new-job.html')
 
+@app.route('/shortlistCandidate')
+def shortlistCandidate():
+    #TODO:  check for session log in first
+    app.logger.info('Fetch shortlistCandidate.html template')
+    return render_template('shortlistCandidate.html')
 
 @app.route('/submitNewJobPost', methods=["POST"])
 def submitNewJobPost():

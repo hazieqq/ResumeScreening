@@ -196,15 +196,19 @@ function updateStatus(elem, id, classnameAnchor) {
         },
         success: function(response) {
             if (response == "success") {
-                Swal.fire({
-                    // position: 'top-end',
-                    icon: 'success',
-                    heightAuto: false,
-                    title: 'Status has been updated',
-                    showConfirmButton: false,
-                    timer: 1500,
-                    customClass: 'swal-wide',
-                })
+                // Swal.fire({
+                //     // position: 'top-end',
+                //     icon: 'success',
+                //     heightAuto: false,
+                //     title: 'Status has been updated',
+                //     showConfirmButton: false,
+                //     timer: 1500,
+                //     customClass: 'swal-wide',
+                // })
+                toastr.options = {
+                    "progressBar": true,
+                }
+                toastr["success"]("Successfully updated");
             } else {
                 Swal.fire(
                     'Fail!',
