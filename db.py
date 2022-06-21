@@ -16,6 +16,16 @@ class DB():
             print("Problem inserting into db: " + str(e))
             return "fail"
         
+    def insertIntoCompanyNews(news):
+        try:
+            cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+            cursor.execute('INSERT INTO companynews VALUES (NULL, % s)', [news])
+            mysql.connection.commit()
+            return "success"
+        except Exception as e:
+            print("Problem inserting into db: " + str(e))
+            return "fail"
+        
     def readFromJobApply():
         try:
             cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)

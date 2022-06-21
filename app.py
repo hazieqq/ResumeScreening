@@ -99,18 +99,55 @@ def calender():
     app.logger.info('Fetch calender.html template')
     return render_template('calender.html')
 
-@app.route('/submitNewJobPost', methods=["POST"])
-def submitNewJobPost():
+@app.route('/admin/addnews')
+def addnews():
+    #TODO:  check for session log in first
+    app.logger.info('Fetch addnews.html template')
+    return render_template('addnews.html')
+
+@app.route('/admin/viewnews')
+def viewnews():
+    #TODO:  check for session log in first
+    app.logger.info('Fetch addnews.html template')
+    return render_template('viewnews.html')
+
+@app.route('/admin/faq')
+def FAQ():
+    #TODO:  check for session log in first
+    app.logger.info('Fetch FAQ.html template')
+    return render_template('FAQ.html')
+
+@app.route('/admin/registeremployee')
+def registeremployee():
+    #TODO:  check for session log in first
+    app.logger.info('Fetch FAQ.html template')
+    return render_template('registeremployee.html')
+
+@app.route('/admin/previewBlog',methods=['GET', 'POST'])
+def previewBlog():
+    # print(request.args.get('data'));
+    #TODO:  check for session log in first
+    app.logger.info('Fetch previewBlog.html template')
+    return render_template('previewBlog.html')
+
+@app.route('/add', methods=["POST"])
+def add():
+    response = "fail"
     # pre-check all values in sweetAlert.js
-    title = request.values.get('title')
-    jobtype = request.values.get('jobtype')
-    experience = request.values.get('experience')
-    closedDate = request.values.get('date')
-    salaryFrom = request.values.get('salaryFrom')
-    description = request.values.get('description')
-    status1 = request.values.get('status1')
-    postedDate = date.today()
-    response = DB.insertIntoJobPost(title,jobtype,experience,closedDate,postedDate,salaryFrom,description,status1)
+    if request.values.get('addwhat') == 'addNewJob':
+        title = request.values.get('title')
+        jobtype = request.values.get('jobtype')
+        experience = request.values.get('experience')
+        closedDate = request.values.get('date')
+        salaryFrom = request.values.get('salaryFrom')
+        description = request.values.get('description')
+        status1 = request.values.get('status1')
+        postedDate = date.today()
+        response = DB.insertIntoJobPost(title,jobtype,experience,closedDate,postedDate,salaryFrom,description,status1)
+    elif request.values.get('addwhat') == 'addNews':
+        news = request.values.get('news')
+        print(type(news))
+        response =DB.insertIntoCompanyNews(news)
     
     return response
 

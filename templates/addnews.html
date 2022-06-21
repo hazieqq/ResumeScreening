@@ -1,0 +1,25 @@
+{% extends 'base-admin-page.html' %} {% block content %}
+<div class="content-body">
+    <!-- row -->
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-xl-12">
+                <textarea name="content" id="editor">
+                    &lt;p&gt;This is some sample content.&lt;/p&gt;
+                </textarea>
+
+            </div>
+        </div>
+        <div class="card-footer text-end">
+            <div>
+                <a id="preview" onclick="pashref()" class="btn btn-secondary">Preview</a>
+                <a id="addNews" onclick="addNews()" class="btn btn-primary">Add</a>
+            </div>
+
+        </div>
+    </div>
+</div>
+<script>
+</script>
+{% endblock %}

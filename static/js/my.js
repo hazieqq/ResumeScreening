@@ -44,8 +44,9 @@ function submitNewJobPost() {
         if (result.isConfirmed) {
             $.ajax({
                 type: "post",
-                url: "/submitNewJobPost",
+                url: "/add",
                 data: {
+                    'addwhat': 'addNewJob',
                     'title': title,
                     'jobtype': jobtype,
                     'experience': experience,
@@ -377,9 +378,9 @@ tinymce.init({
     readonly: true
 });
 
-tinymce.init({
-    selector: 'textarea',
-});
+// tinymce.init({
+//     selector: 'textarea',
+// });
 
 // $('.select').select2({
 //     theme: 'bootstrap4',
@@ -477,7 +478,62 @@ function updateJobList(id, checkEmpty) {
             }
         });
     }
+}
+// create ckeditor in addnews.html
+let edit;
+ClassicEditor
+    .create(document.querySelector('#editor'))
+    .then(editor => {
+        edit = editor
+        console.log(editor.getData());
+    })
+    .catch(error => {
+        console.error(error);
+    });
 
-
-
+function addNews() {
+    var news = edit.getData();
+    $.ajax({
+        type: "post",
+        url: "/add",
+        data: {
+            'addwhat': 'addNews',
+            'news': news,
+        },
+        success: function(response) {
+            if (response == "success") {
+                toastr.options = {
+                    "progressBar": true,
+                }
+                toastr["success"]("Successfully Added");
+            } else {
+                Swal.fire(
+                    'Fail!',
+                    'Error occur in add news. Please try again after a few minute',
+                    'error',
+                ).then((result) => {
+                    if (result.isConfirmed) {
+                        location.reload()
+                    } else {
+                        location.reload()
+                    }
+                })
+            }
+        },
+        error: function(errorThrown) {
+            // window.open("../../templates/page-error-500.html")
+            console.log(errorThrown)
+            Swal.fire(
+                'Fail!',
+                'Error occur in add news. Please try again after a few minute',
+                'error',
+            ).then((result) => {
+                if (result.isConfirmed) {
+                    location.reload()
+                } else {
+                    location.reload()
+                }
+            })
+        }
+    });
 }
