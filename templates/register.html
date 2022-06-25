@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+{% block title %}Home Page{% endblock %}
+{% block content %}
+<main>
+
+    <div class="register">
+		<h1>Register</h1>
+		<form action="" method="post" autocomplete="off" enctype='multipart/form-data'>
+			<label for="fullname">
+				<i class="fas fa-fullname"></i>
+			</label>
+			<input type="text" name="fullName" placeholder="Fullname" id="fullname" >
+			<label for="username">
+				<i class="fas"></i>
+			</label>
+			<input type="text" name="username" placeholder="Username" id="username" >
+			<!-- <label for="username">
+				<i class="fas fa-user"></i>
+			</label>
+			<input type="text" name="username" placeholder="Username" id="username" > -->
+			<label for="password">
+				<i class="fas"></i>
+			</label>
+			<input type="password" name="password" placeholder="Password" id="password" >
+			<!-- <label for="password">
+				<i class="fas fa-lock"></i>
+			</label>
+			<input type="password" name="password" placeholder="Password" id="password" > -->
+			<label for="email">
+				<i class="fas"></i>
+			</label>
+			<input type="email" name="email" placeholder="Email" id="email" >
+			<!-- <label for="email">
+				<i class="fas fa-envelope"></i>
+			</label>
+			<input type="email" name="email" placeholder="Email" id="email" > -->
+			<label for="phonenumber">
+				<i class="fas fa-phonenumber"></i>
+			</label>
+			<input type="text" name="phoneNumber" placeholder="Phone Number" id="phonenumber" >
+			<label for="country">
+				<i class="fas fa-country"></i>
+			</label>
+			<input type="text" name="country" placeholder="Country" id="country" >
+			<label for="currentCompany">
+				<i class="fas fa-currentCompany"></i>
+			</label>
+			<input type="text" name="currentCompany" placeholder="Current Company" id="currentCompany" >
+			<label for="skills">
+				<i class="fas"></i>
+			</label>
+			<input type="text" name="skills" placeholder="Skills" id="skills" >
+			<div class="resume">
+			<p class="text-left">Please insert your CV</p>
+			</div>
+			<!-- Insert Resume  -->
+			<div class="row">
+				<div class="col-md-8">
+					<form action="" method="post">
+						<div class="input_fields_wrap ml-3">                                       
+						<button class="add_field_button">Add More Fields</button>
+						<input type="file" name="file" class="mt-3 mb-3">
+						</div>
+					</form>
+				</div>
+			 </div>
+			
+			<div class="msg">{{ msg }}</div>
+			<button class="btn" name="register">Register</button>
+			<!-- <input type="submit" value="Register" class="ml-3 mb-3"> -->
+		</form>
+	</div>
+
+	<script>
+		$(document).ready(function() {
+		var max_fields      = 10; //maximum input boxes allowed
+		var wrapper   		= $(".input_fields_wrap"); //Fields wrapper
+		var add_button      = $(".add_field_button"); //Add button ID
+		
+		var x = 1; //initlal text box count
+		$(add_button).click(function(e){ //on add input button click
+		e.preventDefault();
+			if(x < max_fields){ //max input box allowed
+				x++; //text box increment
+				$(wrapper).append('<div class="input-group mb-3"><input type="file" name="file"><div class="input-group-append"><button class="btn btn-danger remove_field" type="button">Remove</button></div></div>'); //add input box
+			}
+		});
+		
+		$(wrapper).on("click",".remove_field", function(e){ //user click on remove text
+			e.preventDefault(); $(this).parent('div').parent('div').remove(); x--;
+			})
+		});
+		
+		
+	</script>
+
+</main>
+{% endblock %}

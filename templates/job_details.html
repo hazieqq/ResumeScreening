@@ -1,0 +1,273 @@
+{% extends "base.html" %}
+{% block title %}Job Details{% endblock %}
+{% block content %}
+<main>
+    
+    <!-- Hero Area Start-->
+    <div class="slider-area ">
+        <div class="single-slider section-overly slider-height2 d-flex align-items-center " style="background-color:SlateBlue;" data-background="assets/img/hero/about.jpg">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="hero-cap text-center">
+                            <h2>UI/UX Designer</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        <!-- Hero Area End -->
+        <!-- job post company Start -->
+        <div class="job-post-company pt-120 pb-120">
+            <div class="container">
+                <div class="row justify-content-between">
+                    <!-- Left Content -->
+                    <div class="col-xl-7 col-lg-8">
+                        <!-- job single -->
+                        <div class="single-job-items mb-50">
+                            <div class="job-items">
+                                <div class="company-img company-img-details">
+                                    <a href="#"><img src="assets/img/icon/job-list1.png" alt=""></a>
+                                </div>
+                                {% for job in data %}
+                                <div class="job-tittle">
+                                    <a href="#">
+                                        <h4>{{ job['jobTitle'] }}</h4>
+                                    </a>
+                                    <ul>
+                                        <li>Developer</li>
+                                        <li><i class="fas fa-map-marker-alt"></i>Kuala Lumpur, Malaysia</li>
+                                        <li>{{ job['salaryRange'] }}</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                          <!-- job single End -->
+                       
+                        <div class="job-post-details">
+                            <div class="post-details1 mb-50">
+                                <!-- Small Section Tittle -->
+                                <div class="small-section-tittle">
+                                    <h4>Job Description</h4>
+                                </div>
+                                <p>{{ job['jobDesc'] }}</p>
+                            </div>
+                            <div class="post-details2  mb-50">
+                                 <!-- Small Section Tittle -->
+                                <div class="small-section-tittle">
+                                    <h4>Required Knowledge, Skills, and Abilities</h4>
+                                </div>
+                               <ul>
+                                   <li>{{ job['jobQualification'] }}</li>
+                                   <!-- <li>Resourcefulness and troubleshooting aptitude</li>
+                                   <li>Knowledge of coding languages (e.g. C++, Java, JavaScript) and frameworks/systems (e.g. AngularJS, Git)</li>
+                                   <li>Ability to learn new languages and technologies</li>
+                                   <li>Excellent communication skills</li> -->
+                               </ul>
+                            </div>
+                            <div class="post-details2  mb-50">
+                                 <!-- Small Section Tittle -->
+                                <div class="small-section-tittle">
+                                    <h4>Education + Experience</h4>
+                                </div>
+                               <ul>
+                                   <li>{{ job['experience'] }}</li>
+                                   <!-- <li>Experience with databases and Object-Relational Mapping (ORM) frameworks (e.g. Hibernate)</li>
+                                   <li>BSc/BA in Computer Science, Engineering or a related field</li>
+                                   <li>Familiarity with mobile and web apps preferred</li>
+                                   <li>Experience using Invision a plus</li> -->
+                               </ul>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- Right Content -->
+                    <div class="col-xl-4 col-lg-4">
+                        <div class="post-details3  mb-50">
+                            <!-- Small Section Tittle -->
+                           <div class="small-section-tittle">
+                               <h4>Job Overview</h4>
+                           </div>
+                          <ul>
+                              <li>Posted date : <span>{{ job['datePost'] }}</span></li>
+                              <li>Location : <span></span></li>
+                              <li>Vacancy : <span></span></li>
+                              <li>Job nature : <span>{{ job['jobType'] }}</span></li>
+                              <li>Salary :  <span>{{ job['salaryRange'] }}</span></li>
+                              <!-- <li>Application date : <span>12 Sep 2020</span></li> -->
+                          </ul>
+                          {% endfor %}
+                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#applyjob">
+                            Apply Now
+                          </button>
+                          {% if check==1 %}
+                          <!-- Modal -->
+                            <div class="modal fade" id="applyjob" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                    <h3 class="modal-title ml-3">These are all the files you are going to send to HR</h3>
+                                    <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button> -->
+                                    </div>
+                                    <div class="modal-body">
+                                        {% for file in files %}
+                                        <span>{{ file['cv'] }}</span><br>
+                                        {% endfor %}
+                                        <span></span>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <a href="/profile" class="btn" type="button">Edit</a>
+                                        <button type="button" class="btn btn-sm" data-dismiss="modal">Close</button>
+                                        {% for job in data %}
+                                        {% set index = job["jobID"] %}
+                                        <a onclick="submitapplication('{{ index }}')" class="btn" type="button">Submit</a>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                            {% endif %}
+                            {% if check==2 %}
+                            <div class="modal fade" id="applyjob" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLongTitle"></h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Please login first
+                                    </div>
+                                    <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                            {% endif %}
+                       </div>
+                        <div class="post-details4  mb-50">
+                            <!-- Small Section Tittle -->
+                           <!-- <div class="small-section-tittle">
+                               <h4>Company Information</h4>
+                           </div>
+                              <span>Colorlib</span>
+                              <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</p>
+                            <ul>
+                                <li>Name: <span>Colorlib </span></li>
+                                <li>Web : <span> colorlib.com</span></li>
+                                <li>Email: <span>carrier.colorlib@gmail.com</span></li>
+                            </ul> -->
+                       </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- job post company End -->
+    
+</main>
+<script>
+    $(document).ready(function() {
+    var max_fields      = 10; //maximum input boxes allowed
+    var wrapper   		= $(".input_fields_wrap"); //Fields wrapper
+    var add_button      = $(".add_field_button"); //Add button ID
+
+    var x = 1; //initlal text box count
+    $(add_button).click(function(e){ //on add input button click
+    e.preventDefault();
+        if(x < max_fields){ //max input box allowed
+            x++; //text box increment
+            $(wrapper).append('<div class="input-group mb-3"><input type="file" name="file"><div class="input-group-append"><button class="btn btn-danger remove_field" type="button">Remove</button></div></div>'); //add input box
+        }
+    });
+
+    $(wrapper).on("click",".remove_field", function(e){ //user click on remove text
+        e.preventDefault(); $(this).parent('div').parent('div').remove(); x--;
+        })
+
+    
+
+    });
+
+    function submitapplication(jobid) {
+
+        console.log(jobid)
+        Swal.fire({
+            title: 'Do you want to save the changes?',
+            showCancelButton: true,
+            confirmButtonText: 'Save',
+            }).then((result) => {
+                /* Read more about isConfirmed, isDenied below */
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: "/applyjob",
+                        type: "POST",
+                        data: {
+                            'id': jobid
+                        },
+                        success: function (response, errorThrown) {
+                            if(response == 'success'){
+                                Swal.fire('Saved!', '', 'success').then((result) => {
+                                    if (result.isConfirmed) {
+                                        location.reload()
+                                    } else {
+                                        location.reload()
+                                    }
+                                })
+                            }else {
+                                console.log('testfailed')
+                                Swal.fire(
+                                    'Fail!',
+                                    'Error occured in deleting. Please try again after a few minute',
+                                    'error',
+                                ).then((result) => {
+                                    if (result.isConfirmed) {
+                                        location.reload()
+                                    } else {
+                                        location.reload()
+                                    }
+                                })
+                            }
+                        },
+                        error: function (data, message, errorThrown) {
+                            console.log(errorThrown);
+                            console.log("failed");
+                            location.reload();
+                        },
+                    });
+            } 
+        })
+    }
+
+    $(edit_button).click(function(e){ //on add input button click
+    e.preventDefault();
+        $.ajax({
+                url: "/profile",
+                type: "POST",
+                data: {
+                    'username': username,
+                    'password': password
+                },
+                success: function (response, errorThrown) {
+                    if(response == 'success'){
+                        window.location.href = '/index'
+                    }else{
+                        console.log(errorThrown);
+                        //to do error 404 zieq ajaq nanti
+                    }
+                },
+                error: function (data, message, errorThrown) {
+                    console.log(errorThrown);
+                    console.log("failed");
+                    location.reload();
+                },
+            });
+    });
+
+</script>
+{% endblock %}
