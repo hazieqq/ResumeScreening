@@ -86,7 +86,7 @@ def jobdetails(id):
     data = DB.readspecificjob(id)
     if 'loggedin' in session:
         files = DB.fetchapplyjobfiles(session['id'])
-        print(files)
+        print('jobdetails', files)
         return render_template('job_details.html', check=1, name=session['username'], data=data, files=files)
     else:
         return render_template('job_details.html', check=2, data=data)
@@ -248,9 +248,10 @@ def updatefile(id):
 @app.route("/applyjob", methods=['GET', 'POST'])
 def applyjob():
     jobid = request.values.get('id')
-    print(jobid, ' jobid')
+    jobtitle = request.values.get('title')
+    print(' jobid', jobid)
     if 'loggedin' in session:
-        data = DB.applyjob(session['id'], jobid)
+        data = DB.applyjob(session['id'], jobid, jobtitle)
         return data
     else:
         return redirect(url_for('test'))
@@ -276,7 +277,9 @@ def profilecv():
 @app.route('/appstatus')
 def appstatus():
     if 'loggedin' in session:
-        return render_template('appstatus.html', check=1)
+        data = DB.displayapplyjob(session['id'])
+        print(data)
+        return render_template('appstatus.html', check=1, data=data)
     else:
         return render_template('appstatus.html', check=2)
 

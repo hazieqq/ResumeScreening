@@ -114,16 +114,16 @@
                                     </div>
                                     <div class="modal-body">
                                         {% for file in files %}
-                                        <span>{{ file['cv'] }}</span><br>
+                                        <span><br>{{ file['cv'] }}</span><br>
                                         {% endfor %}
                                         <span></span>
                                     </div>
                                     <div class="modal-footer">
-                                        <a href="/profile" class="btn" type="button">Edit</a>
+                                        <a href="/profilecv" class="btn" type="button">Edit</a>
                                         <button type="button" class="btn btn-sm" data-dismiss="modal">Close</button>
                                         {% for job in data %}
-                                        {% set index = job["jobID"] %}
-                                        <a onclick="submitapplication('{{ index }}')" class="btn" type="button">Submit</a>
+                                        {% set index = job["jobID"] %}{% set jobtitle = job["jobTitle"] %}
+                                        <a onclick="submitapplication('{{ index }}', '{{ jobtitle }}')" class="btn" type="button">Submit</a>
                                         {% endfor %}
                                     </div>
                                 </div>
@@ -189,14 +189,10 @@
     $(wrapper).on("click",".remove_field", function(e){ //user click on remove text
         e.preventDefault(); $(this).parent('div').parent('div').remove(); x--;
         })
-
-    
-
     });
 
-    function submitapplication(jobid) {
-
-        console.log(jobid)
+    function submitapplication(jobid, jobtitle) {
+        console.log("masuk")
         Swal.fire({
             title: 'Do you want to save the changes?',
             showCancelButton: true,
@@ -208,7 +204,8 @@
                         url: "/applyjob",
                         type: "POST",
                         data: {
-                            'id': jobid
+                            'id': jobid,
+                            'title': jobtitle
                         },
                         success: function (response, errorThrown) {
                             if(response == 'success'){

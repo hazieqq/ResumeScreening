@@ -20,9 +20,24 @@
                   <hr>
             </div>
         </div>
-        <div class="row">
-            
+        <div class="row mb-5">
+            <div class="col">
+                Job Title
+            </div>
+            <div class="col">
+                Status
+            </div>
         </div>
+        {% for i in data %}
+        <div class="row">
+            <div class="col">
+                {{ i['jobtitle'] }}
+            </div>
+            <div class="col">
+                {{ i['status'] }}
+            </div>
+        </div>
+        {% endfor %}
     </div>
 </main>
 {% endblock %}

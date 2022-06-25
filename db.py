@@ -161,14 +161,27 @@ class DB():
             print("Problem fetch from user table: " + str(e))
             return "fail"
 
-    def applyjob(session_id, jobapplyid):
+    def applyjob(session_id, jobapplyid, jobtitle):
         try:
             print('applyspecificjobfilesuccess')
             session_convert = str(session_id) 
             cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-            cursor.execute('INSERT INTO applyjob VALUES (%s, %s, %s, %s, %s)', (session_convert, jobapplyid, 'active', jobapplyid, '9999-99-99'))
+            cursor.execute('INSERT INTO applyjob VALUES (NULL, %s, %s, %s, %s, %s)', (session_convert, jobapplyid, jobtitle, 'Pending', '9999-99-99'))
             mysql.connection.commit()
             return 'success'
+        except Exception as e:
+            print("Problem fetch from user table: " + str(e))
+            return "fail"
+
+    def displayapplyjob(sessionid):
+        try:
+            print('readspecificjobfilesuccess')
+            session_convert = str(sessionid)
+            cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+            cursor.execute('SELECT * FROM applyjob WHERE applicantID = %s' % (session_convert))
+            data = cursor.fetchall()
+            print(data)
+            return data
         except Exception as e:
             print("Problem fetch from user table: " + str(e))
             return "fail"
