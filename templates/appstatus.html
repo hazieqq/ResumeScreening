@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}App Status{% endblock %}
+
+{% block content %}
+<main>
+    <div class="container mt-5 mb-5">
+        <div class="row">
+            <div class="col">
+                <ul class="nav nav-pills">
+                    <li class="nav-item">
+                      <a class="nav-link" style="color:rgb(0, 0, 0)" href="{{ url_for('profilepage') }}">Profile</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" style="color:rgb(0, 0, 0)" href="{{ url_for('profilecv') }}">CV</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link active" style="color:rgb(0, 0, 0)" href="{{ url_for('appstatus') }}">Application Status</a>
+                    </li>
+                  </ul>
+                  <hr>
+            </div>
+        </div>
+        <div class="row">
+            
+        </div>
+    </div>
+</main>
+{% endblock %}

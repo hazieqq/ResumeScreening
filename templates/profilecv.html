@@ -1,0 +1,248 @@
+{% extends "base.html" %}
+{% block title %}CV{% endblock %}
+
+{% block content %}
+<main>
+    <div class="container mt-5 mb-5">
+        <div class="row">
+            <div class="col">
+                <ul class="nav nav-pills">
+                    <li class="nav-item">
+                      <a class="nav-link" style="color:rgb(0, 0, 0)" href="{{ url_for('profilepage') }}">Profile</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link active" style="color:rgb(0, 0, 0)" href="{{ url_for('profilecv') }}">CV</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" style="color:rgb(0, 0, 0)" href="{{ url_for('appstatus') }}">Application Status</a>
+                    </li>
+                  </ul>
+                  <hr>
+            </div>
+        </div>
+            <label for="">Choose Your PDF File</label><br>
+                {% for i in data %}{% set index = i['id'] %}
+                <div class="row">
+                    <div class="col-8">
+                        <div id="file_shown{{loop.index}}" name="{{ i['id'] }}">
+                            <span><br>{{ i['cv'] }}</span>
+                                
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <!-- Button trigger modal -->
+                    <button class="btn btn-success btn-sm rounded-0" type="button" data-toggle="modal" data-placement="top" title="Edit" data-target="#editbutton{{ i['id'] }}">
+                        <i class="fa fa-edit"></i>
+                    </button>
+                    
+                    <!-- Modal -->
+                    <div class="modal fade" id="editbutton{{ i['id'] }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">Update File...</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            </div>
+                            <div class="modal-body">
+                                <!-- <form method="POST" action="/updatefile/{{ i['id'] }}" enctype="multipart/form-data">                                     
+                                        <input type="file" name="file_name" class="mt-3 mb-3" value="{{ i['cv'] }}">
+                                    <input type="submit" value="Update File" class="btn btn-secondary"
+                                </form> -->
+                                <form method="POST" id="updateform" action="/updatefile/{{ i['id'] }}" enctype="multipart/form-data">                                   
+                                        <input type="file" name="file_name" class="mt-3 mb-3">
+                                        <!-- <a onclick="updatefile('{{ index }}')" class="btn btn-light">Update</a> -->
+                                        <button class="btn btn-light">Update</button>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                            <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Save changes</button> -->
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                        <a onclick="deletefile('{{ index }}')" class="btn btn-danger">Delete</a>
+                    </div>
+                </div>
+                {% endfor %}
+                <br>
+               <!-- <input id="multiFiles" type="file" name="files[]" value="" multiple="true" autocomplete="off" required><br><br>
+               <button id="upload" class="upload mb-5">Upload</button>
+                <br>
+               <button id="readfile">Readfile</button> -->
+               <form method="POST" action="/testupload" enctype="multipart/form-data">
+                <input type="file" name="file_name" class="mt-3 mb-3">
+                    <div class="input_fields_wrap">                                       
+                        <button class="add_field_button">Add More Fields</button>
+                    </div>
+                    <br>
+                    <!-- <a onclick="addcv()" class="btn">Submit</a> -->
+                    <button>Submit</button>
+                </form>
+    </div>
+    <script>
+    $(document).ready(function (e) {
+        $('[data-toggle="tooltip"]').tooltip();
+
+        var max_fields      = 10; //maximum input boxes allowed
+		var wrapper   		= $(".input_fields_wrap"); //Fields wrapper
+		var add_button      = $(".add_field_button"); //Add button ID
+		
+		var x = 1; //initlal text box count
+		$(add_button).click(function(e){ //on add input button click
+		e.preventDefault();
+			if(x < max_fields){ //max input box allowed
+				x++; //text box increment
+				$(wrapper).append('<div class="input-group mb-3"><br><input type="file" name="file_name"><div class="input-group-append"><button class="btn btn-danger remove_field" type="button">Remove</button></div></div>'); //add input box
+			}
+		});
+		
+		$(wrapper).on("click",".remove_field", function(e){ //user click on remove text
+			e.preventDefault(); $(this).parent('div').parent('div').remove(); x--;
+			})
+
+        });
+
+        function deletefile(fileid) {
+            console.log('deletefile')
+            Swal.fire({
+                title: 'Do you want to delete this file?',
+                showDenyButton: true,
+                denyButtonText: `No`,
+                confirmButtonText: 'Yes',
+                }).then((result) => {
+                    /* Read more about isConfirmed, isDenied below */
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: "/deletefile",
+                            type: "POST",
+                            data: {
+                                'fileid': fileid
+                            },
+                            success: function (response, errorThrown) {
+                                if(response == 'success'){
+                                    Swal.fire('File Deleted Successfully', '', 'success').then((result) => {
+                                        if (result.isConfirmed) {
+                                            location.reload()
+                                        } else {
+                                            location.reload()
+                                        }
+                                    })
+                                }else {
+                                    console.log('testfailed')
+                                    Swal.fire(
+                                        'Fail!',
+                                        'Error occured in deleting. Please try again after a few minute',
+                                        'error',
+                                    ).then((result) => {
+                                        if (result.isConfirmed) {
+                                            location.reload()
+                                        } else {
+                                            location.reload()
+                                        }
+                                    })
+                                }
+                            },
+                            error: function (data, message, errorThrown) {
+                                console.log(errorThrown);
+                                console.log("failed");
+                                location.reload();
+                            },
+                        });
+                } 
+            })
+        }
+
+        function updatefile(fileid) {
+            var id = document.getElementById("updateform");
+            formdata= new FormData(id);
+            console.log(formdata);
+            Swal.fire({
+                title: 'Do you want to update this file?',
+                showDenyButton: true,
+                denyButtonText: `No`,
+                confirmButtonText: 'Yes',
+                }).then((result) => {
+                    /* Read more about isConfirmed, isDenied below */
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: "/updatefile",
+                            type: "POST",
+                            data: {
+                                'fileid': fileid
+                            },
+                            success: function (response, errorThrown) {
+                                if(response == 'success'){
+                                    Swal.fire('File Deleted Successfully', '', 'success').then((result) => {
+                                        if (result.isConfirmed) {
+                                            location.reload()
+                                        } else {
+                                            location.reload()
+                                        }
+                                    })
+                                }else {
+                                    console.log('testfailed')
+                                    Swal.fire(
+                                        'Fail!',
+                                        'Error occured in deleting. Please try again after a few minute',
+                                        'error',
+                                    ).then((result) => {
+                                        if (result.isConfirmed) {
+                                            location.reload()
+                                        } else {
+                                            location.reload()
+                                        }
+                                    })
+                                }
+                            },
+                            error: function (data, message, errorThrown) {
+                                console.log(errorThrown);
+                                console.log("failed");
+                                location.reload();
+                            },
+                        });
+                } 
+            })
+        }
+
+        function addcv() {
+            console.log('addcvsuccess')
+            $.ajax({
+                url: "/testupload",
+                type: "POST",
+                success: function (response, errorThrown) {
+                    if(response == 'success'){
+                        Swal.fire('CV Added Successfully', '', 'success').then((result) => {
+                            if (result.isConfirmed) {
+                                location.reload()
+                            } else {
+                                location.reload()
+                            }
+                        })
+                    }else {
+                        console.log('testfailed')
+                        Swal.fire(
+                            'Fail!',
+                            'Error occured in deleting. Please try again after a few minute',
+                            'error',
+                        ).then((result) => {
+                            if (result.isConfirmed) {
+                                location.reload()
+                            } else {
+                                location.reload()
+                            }
+                        })
+                    }
+                },
+                error: function (data, message, errorThrown) {
+                    console.log(errorThrown);
+                    console.log("failed");
+                    location.reload();
+                },
+            });
+        }
+    </script>
+</main>
+{% endblock %}

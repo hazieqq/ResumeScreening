@@ -31,7 +31,6 @@
     </div><br><br><br><br><br>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='custom.js')}}"></script>
     <script>
         $(document).ready(function(){
 
@@ -50,11 +49,11 @@
                 },
                 success: function (response, errorThrown) {
                     if(response == 'success'){
-                        Swal.fire(
-                            'Login!',
-                            'Login Successfully',
-                            'success'
-                        )
+                        // Swal.fire(
+                        //     'Login!',
+                        //     'Login Successfully',
+                        //     'success'
+                        // )
                         window.location.href = '/index'
                     }else{
                         console.log(errorThrown);

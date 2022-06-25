@@ -220,7 +220,7 @@ def updatefile(id):
                 DB.updatefile(filename, data, id)
             else:
                 return 'fail'
-        return redirect(url_for('profile'))
+        return redirect(url_for('profilecv'))
     return render_template('index.html')
 
 # @app.route('/updatefile', methods=['GET', 'POST'])
@@ -254,6 +254,31 @@ def applyjob():
         return data
     else:
         return redirect(url_for('test'))
+
+@app.route('/profilepage')
+def profilepage():
+    if 'loggedin' in session:
+        fetch_upload = DB.fetchtestupload(session['username'])
+        account = DB.readProfile(session['id'])
+        return render_template('profilepage.html', account=account, data=fetch_upload, check=1)
+    else:
+        return render_template('profilepage.html', check=2)
+
+@app.route('/profilecv')
+def profilecv():
+    if 'loggedin' in session:
+        fetch_upload = DB.fetchtestupload(session['username'])
+        account = DB.readProfile(session['id'])
+        return render_template('profilecv.html', account=account, data=fetch_upload, check=1)
+    else:
+        return render_template('profilecv.html', check=2)
+
+@app.route('/appstatus')
+def appstatus():
+    if 'loggedin' in session:
+        return render_template('appstatus.html', check=1)
+    else:
+        return render_template('appstatus.html', check=2)
 
 
 if __name__ == "__main__":
