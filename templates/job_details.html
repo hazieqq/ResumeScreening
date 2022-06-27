@@ -119,11 +119,11 @@
                                         <span></span>
                                     </div>
                                     <div class="modal-footer">
-                                        <a href="/profilecv" class="btn" type="button">Edit</a>
+                                        <a href="/profilecv" class="btn editbuttonjobdetails" type="button">Edit</a>
                                         <button type="button" class="btn btn-sm" data-dismiss="modal">Close</button>
                                         {% for job in data %}
                                         {% set index = job["jobID"] %}{% set jobtitle = job["jobTitle"] %}
-                                        <a onclick="submitapplication('{{ index }}', '{{ jobtitle }}')" class="btn" type="button">Submit</a>
+                                        <a onclick="submitapplication('{{ index }}', '{{ jobtitle }}')" class="btn submitbuttonjobdetails" type="button">Submit</a>
                                         {% endfor %}
                                     </div>
                                 </div>

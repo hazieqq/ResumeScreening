@@ -189,7 +189,7 @@ def testupload():
                 DB.uploadcv(session['id'], session['username'], filename, data)
             else:
                 return 'fail'
-        return 'success'
+        return redirect(url_for('profilecv'))
     return render_template('index.html')
 
 @app.route('/download')

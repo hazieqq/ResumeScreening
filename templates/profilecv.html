@@ -32,7 +32,7 @@
                     <div class="col-4">
                         <!-- Button trigger modal -->
                     <button class="btn btn-success btn-sm rounded-0" type="button" data-toggle="modal" data-placement="top" title="Edit" data-target="#editbutton{{ i['id'] }}">
-                        <i class="fa fa-edit"></i>
+                        Edit
                     </button>
                     
                     <!-- Modal -->
@@ -63,7 +63,7 @@
                         </div>
                         </div>
                     </div>
-                        <a onclick="deletefile('{{ index }}')" class="btn btn-danger">Delete</a>
+                        <a onclick="deletefile('{{ index }}')" class="btn buttondelete">Delete</a>
                     </div>
                 </div>
                 {% endfor %}
@@ -79,7 +79,7 @@
                     </div>
                     <br>
                     <!-- <a onclick="addcv()" class="btn">Submit</a> -->
-                    <button>Submit</button>
+                    <button class="submitcv" style="color:rgb(0, 0, 0)">Submit</button>
                 </form>
     </div>
     <script>
