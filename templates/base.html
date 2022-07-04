@@ -25,6 +25,11 @@
             <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='assets/css/nice-select.css')}}">
             <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='assets/css/style.css')}}">
             <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='assets/css/custom.css')}}">
+            <!-- select2 CSS -->
+            <!-- <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" /> -->
+            <link href="{{ url_for('static', filename='select2/css/select2.css')}}" rel="stylesheet" />
+            <link href="{{ url_for('static', filename='select2/css/select2.min.css')}}" rel="stylesheet" />
+
             <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
             <!-- login -->
             <!-- <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
@@ -197,5 +202,13 @@
         <script src="{{ url_for('static', filename='./assets/js/plugins.js')}}"></script>
         <script src="{{ url_for('static', filename='./assets/js/main.js')}}"></script>
         
+        <!-- select2 Javascript -->
+        <!-- <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script> -->
+        <script src="{{ url_for('static', filename='./select2/js/select2.full.js')}}"></script>
+        <script src="{{ url_for('static', filename='./select2/js/select2.full.min.js')}}"></script>
+        <script src="{{ url_for('static', filename='./select2/js/select2.js')}}"></script>
+        <script src="{{ url_for('static', filename='./select2/js/select2.min.js')}}"></script>
+
+        <script src="{{ url_for('static', filename='./select2/js/select2.min.js')}}"></script>
     </body>
 </html>

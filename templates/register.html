@@ -2,73 +2,67 @@
 {% block title %}Home Page{% endblock %}
 {% block content %}
 <main>
+	<div class="container">
+		<div class="row">
+			<h1>Register</h1>
+		</div>
+		<div class="row">
+			<div class="register">
+				<br><label for="fullname">
+					Fullname
+				</label>
+				<input type="text" class="form-control" name="fullName" placeholder="Fullname" id="fullname" ><br>
+				<label for="username">
+					Username
+				</label>
+				<input type="text" class="form-control" name="username" placeholder="Username" id="username" ><br>
+				<label for="password">
+					Password
+				</label>
+				<input type="password" class="form-control" name="password" placeholder="Password" id="password" ><br>
+				<label for="email">
+					Email
+				</label>
+				<input type="email" class="form-control" name="email" placeholder="Email" id="email" ><br>
+				<label for="phonenumber">
+					Phone Number
+				</label>
+				<input type="text" class="form-control" name="phoneNumber" placeholder="Phone Number" id="phonenumber" ><br>
+				<label for="country">
+					Country
+				</label>
+				<input type="text" class="form-control" name="country" placeholder="Country" id="country" ><br>
+				<label for="currentCompany">
+					Current Company
+				</label>
+				<input type="text" class="form-control" name="currentCompany" placeholder="Current Company" id="currentCompany" ><br>
 
-    <div class="register">
-		<h1>Register</h1>
-		<form action="" method="post" autocomplete="off" enctype='multipart/form-data'>
-			<label for="fullname">
-				<i class="fas fa-fullname"></i>
-			</label>
-			<input type="text" name="fullName" placeholder="Fullname" id="fullname" >
-			<label for="username">
-				<i class="fas"></i>
-			</label>
-			<input type="text" name="username" placeholder="Username" id="username" >
-			<!-- <label for="username">
-				<i class="fas fa-user"></i>
-			</label>
-			<input type="text" name="username" placeholder="Username" id="username" > -->
-			<label for="password">
-				<i class="fas"></i>
-			</label>
-			<input type="password" name="password" placeholder="Password" id="password" >
-			<!-- <label for="password">
-				<i class="fas fa-lock"></i>
-			</label>
-			<input type="password" name="password" placeholder="Password" id="password" > -->
-			<label for="email">
-				<i class="fas"></i>
-			</label>
-			<input type="email" name="email" placeholder="Email" id="email" >
-			<!-- <label for="email">
-				<i class="fas fa-envelope"></i>
-			</label>
-			<input type="email" name="email" placeholder="Email" id="email" > -->
-			<label for="phonenumber">
-				<i class="fas fa-phonenumber"></i>
-			</label>
-			<input type="text" name="phoneNumber" placeholder="Phone Number" id="phonenumber" >
-			<label for="country">
-				<i class="fas fa-country"></i>
-			</label>
-			<input type="text" name="country" placeholder="Country" id="country" >
-			<label for="currentCompany">
-				<i class="fas fa-currentCompany"></i>
-			</label>
-			<input type="text" name="currentCompany" placeholder="Current Company" id="currentCompany" >
-			<label for="skills">
-				<i class="fas"></i>
-			</label>
-			<input type="text" name="skills" placeholder="Skills" id="skills" >
-			<div class="resume">
-			<p class="text-left">Please insert your CV</p>
-			</div>
-			<!-- Insert Resume  -->
-			<div class="row">
-				<div class="col-md-8">
-					<form action="" method="post">
-						<div class="input_fields_wrap ml-3">                                       
-						<button class="add_field_button">Add More Fields</button>
-						<input type="file" name="file" class="mt-3 mb-3">
-						</div>
-					</form>
+				
+				
+				<br><label for="skills">
+					Skills
+				</label>
+				<input type="text" class="form-control" name="skills" placeholder="Skills" id="skills" ><br>
+				<div class="resume">
+				<p class="text-left">Please insert your CV</p>
 				</div>
-			 </div>
-			
-			<div class="msg">{{ msg }}</div>
-			<button class="btn" name="register">Register</button>
-			<!-- <input type="submit" value="Register" class="ml-3 mb-3"> -->
-		</form>
+				<!-- Insert Resume  -->
+				<div class="row">
+					<div class="col-md-8">
+						<form action="" method="post">
+							<div class="input_fields_wrap ml-3">                                       
+							<button class="add_field_button">Add More Fields</button>
+							<input type="file" name="file" class="mt-3 mb-3">
+							</div>
+						</form>
+					</div>
+					</div>
+				
+				<div class="msg">{{ msg }}</div>
+				<button class="btn" name="register">Register</button>
+				<!-- <input type="submit" value="Register" class="ml-3 mb-3"> -->
+		</div>
+		</div>
 	</div>
 
 	<script>

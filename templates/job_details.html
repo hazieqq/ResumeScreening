@@ -9,8 +9,9 @@
             <div class="container">
                 <div class="row">
                     <div class="col-xl-12">
+                        {% for job in data %}
                         <div class="hero-cap text-center">
-                            <h2>UI/UX Designer</h2>
+                            <h2>{{ job['jobTitle'] }}</h2>
                         </div>
                     </div>
                 </div>
@@ -30,7 +31,6 @@
                                 <div class="company-img company-img-details">
                                     <a href="#"><img src="assets/img/icon/job-list1.png" alt=""></a>
                                 </div>
-                                {% for job in data %}
                                 <div class="job-tittle">
                                     <a href="#">
                                         <h4>{{ job['jobTitle'] }}</h4>
