@@ -186,4 +186,16 @@ class DB():
             print("Problem fetch from user table: " + str(e))
             return "fail"
 
+    def fetchtestdownload():
+        try:
+            # print('fetch test upload success')
+            cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+            cursor.execute('SELECT * FROM user_cv where id = 6')
+            data = cursor.fetchone()
+            return data
+
+        except Exception as e:
+            print("Problem fetch from user table: " + str(e))
+            return "fail"
+
     

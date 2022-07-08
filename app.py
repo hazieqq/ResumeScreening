@@ -194,8 +194,9 @@ def testupload():
 
 @app.route('/download')
 def download():
-    fetch_upload = DB.fetchtestupload()
-    filename = fetch_upload['pdf']
+    fetch_upload = DB.fetchtestdownload()
+    print(fetch_upload)
+    filename = fetch_upload['cv']
     data = fetch_upload['data']
     return send_file(BytesIO(data), attachment_filename=filename, as_attachment=True)
 
