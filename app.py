@@ -46,31 +46,21 @@ def register():
         msg = 'Please fill out the form!'
     return render_template('register.html', check=2)
 
-@app.route('/test', methods=['GET', 'POST'])
-def test():
+@app.route('/login', methods=['GET', 'POST'])
+def login():
     msg = ''
     if request.method == 'POST':
         username = request.values.get('username')
         password = request.values.get('password')
-        print(username)
-        print(password)
         account = DB.readFromUser(username, password)
-        print(account)
         if account:
             session['loggedin'] = True
             session['id'] = account['id']
             session['username'] = account['username']
             return 'success'
         else:
-            msg = 'Incorrect username/password!'
+            return 'fail'
     return render_template('login.html', check=2) 
-
-# @app.route("/test")
-# def test():
-#     if 'loggedin' in session:
-#         return render_template('login.html', check=1, name=session['username'])
-#     else:
-#         return render_template('login.html', check=2)
 
 @app.route("/joblisting")
 def joblisting():
@@ -119,7 +109,7 @@ def profile():
         account = DB.readProfile(session['id'])
         return render_template('profile.html', account=account, data=fetch_upload, check=1)
     else:
-        return redirect(url_for('test'))
+        return redirect(url_for('login'))
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
@@ -255,7 +245,7 @@ def applyjob():
         data = DB.applyjob(session['id'], jobid, jobtitle)
         return data
     else:
-        return redirect(url_for('test'))
+        return redirect(url_for('login'))
 
 @app.route('/profilepage')
 def profilepage():
